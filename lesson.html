@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>درس الرياضيات والتمارين التفاعلية | PGCD - أكاديمية أمين</title>
+    <title id="pageTitle">الدرس | أكاديمية أمين</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -76,159 +76,54 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
 
-        h1 {
-            color: var(--primary);
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
+        h1 { color: var(--primary); font-size: 1.5rem; margin-bottom: 15px; }
+        h2 { color: var(--secondary); font-size: 1.2rem; margin-bottom: 12px; border-right: 4px solid var(--accent); padding-right: 10px; }
+        p, li { font-size: 0.95rem; color: #334155; margin-bottom: 10px; }
+        ul { padding-right: 20px; }
 
-        h2 {
-            color: var(--secondary);
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-            border-right: 4px solid var(--accent);
-            padding-right: 10px;
-        }
+        .interactive-box { background: #f1f5f9; border-radius: 12px; padding: 18px; margin-top: 15px; border: 1px dashed #cbd5e1; }
+        .input-group { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+        input { flex: 1; min-width: 120px; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; outline: none; }
+        button { background: var(--secondary); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
 
-        p, li {
-            font-size: 0.95rem;
-            color: #334155;
-            margin-bottom: 10px;
-        }
+        .result-area { margin-top: 15px; padding: 12px; background: #ffffff; border-radius: 8px; border-right: 3px solid #22c55e; font-weight: bold; }
+        .step-list { font-family: monospace; direction: ltr; text-align: left; background: #1e293b; color: #38bdf8; padding: 12px; border-radius: 8px; margin-top: 10px; font-size: 0.85rem; max-height: 180px; overflow-y: auto; }
 
-        ul {
-            padding-right: 20px;
-        }
+        .exercise-box { background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 18px; margin-top: 15px; }
+        .feedback { margin-top: 10px; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.9rem; display: none; }
 
-        .interactive-box {
-            background: #f1f5f9;
-            border-radius: 12px;
-            padding: 18px;
-            margin-top: 15px;
-            border: 1px dashed #cbd5e1;
-        }
-
-        .input-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-
-        input {
-            flex: 1;
-            min-width: 120px;
-            padding: 10px 14px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        button {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            transition: background 0.2s;
-        }
-
-        button:hover {
-            background: var(--primary);
-        }
-
-        .result-area {
-            margin-top: 15px;
-            padding: 12px;
-            background: #ffffff;
-            border-radius: 8px;
-            border-right: 3px solid #22c55e;
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-
-        .step-list {
-            font-family: monospace;
-            direction: ltr;
-            text-align: left;
-            background: #1e293b;
-            color: #38bdf8;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 0.85rem;
-            max-height: 180px;
-            overflow-y: auto;
-        }
-
-        /* تنسيق قسم التمارين التفاعلية */
-        .exercise-box {
-            background: #fffbeb;
-            border: 1px solid #fde68a;
-            border-radius: 12px;
-            padding: 18px;
-            margin-top: 15px;
-        }
-
-        .feedback {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        footer {
-            text-align: center;
-            font-size: 0.85rem;
-            color: #64748b;
-            margin-top: 30px;
-        }
+        footer { text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 30px; }
     </style>
 </head>
 <body>
 
     <header>
-        <div>🎓 <strong>أكاديمية أمين</strong></div>
+        <div>🎓 <strong id="headerSubject">أكاديمية أمين</strong></div>
         <a href="index.html">← الرئيسية</a>
     </header>
 
     <div class="container">
-        <span class="badge">السنة الرابعة متوسط - BEM</span>
+        <span class="badge" id="lessonLevel">جاري التحميل...</span>
         
-        <!-- عنوان الدرس -->
         <div class="card">
-            <h1>المقطع 01: القاسم المشترك الأكبر (PGCD) والكسور غير القابلة للاختزال</h1>
-            <p>درس مفاهيمي ملخص وفق المنهج التربوي الرسمي للديوان الوطني للمسابقات والامتحانات.</p>
+            <h1 id="lessonTitle">عنوان الدرس</h1>
+            <p id="lessonDesc"></p>
         </div>
 
-        <!-- الشرح البيداغوجي -->
         <div class="card">
             <h2>1. ملخص الدرس الأساسي</h2>
-            <p>نسمي القاسم المشترك الأكبر لعددين طبيعيين غير معدومين $a$ و $b$ أكبر قاسم يشتركان فيه، ونرمز له بـ: <strong>PGCD(a, b)</strong>.</p>
-            <ul>
-                <li><strong>خوارزمية إقليدس (القسمات المتتالية):</strong> الأسرع والأكثر اعتماداً في شهادة BEM.</li>
-                <li><strong>الكسر غير القابل للاختزال:</strong> يكون $\frac{a}{b}$ غير قابل للاختزال إذا كان $PGCD(a, b) = 1$.</li>
-            </ul>
+            <div id="lessonSummary"></div>
         </div>
 
-        <!-- المساعد الذكي / حاسبة الشرح -->
-        <div class="card">
-            <h2>🤖 المساعد الذكي: حاسبة وشارح خطوط PGCD</h2>
-            <p>أدخل أي عددين لتستعرض خطوات خوارزمية إقليدس التفصيلية:</p>
+        <!-- أداة تفاعلية حاسبة (تظهر فقط للدروس ذات الأدوات) -->
+        <div class="card" id="toolCard" style="display: none;">
+            <h2>🤖 المساعد الذكي: حاسبة وشرح PGCD</h2>
             <div class="interactive-box">
                 <div class="input-group">
                     <input type="number" id="numA" placeholder="العدد الأول (a)" value="221">
                     <input type="number" id="numB" placeholder="العدد الثاني (b)" value="85">
                 </div>
                 <button onclick="calculatePGCD()">احسب وشرح الخطوات</button>
-
                 <div id="resultOutput" style="display: none;">
                     <div class="result-area" id="finalResult"></div>
                     <div class="step-list" id="stepsOutput"></div>
@@ -236,19 +131,15 @@
             </div>
         </div>
 
-        <!-- قسم التمارين التفاعلية الجديدة -->
+        <!-- قسم التمرين التفاعلي -->
         <div class="card">
-            <h2>✍️ قسم التمارين التفاعلية والتطبيقات (BEM)</h2>
-            <p>اختبر فهمك للدرس من خلال التمرين التجريبي التالي:</p>
-            
+            <h2>✍️ قسم التمارين التفاعلية والتطبيقات</h2>
             <div class="exercise-box">
-                <p><strong>تمرين تطبيقي:</strong> احسب القاسم المشترك الأكبر للعددين <strong>306</strong> و <strong>132</strong>، ثم اكتب الكسر $\frac{306}{132}$ على شكل كسر غير قابل للاختزال.</p>
-                
+                <p id="exerciseQuestion"></p>
                 <div class="input-group">
-                    <input type="number" id="ansPgcd" placeholder="أدخل قيمة PGCD هنا">
+                    <input type="text" id="ansInput" placeholder="أدخل إجابتك هنا">
                 </div>
                 <button onclick="checkExercise()" style="background: #d97706;">تحقق من الإجابة</button>
-                
                 <div id="exerciseFeedback" class="feedback"></div>
             </div>
         </div>
@@ -258,55 +149,65 @@
         <p>&copy; 2026 - Amin-Dz-Edsmart | جميع الحقوق محفوظة</p>
     </footer>
 
+    <!-- تحميل ملف قاعدة البيانات -->
+    <script src="lessons-data.js"></script>
+
     <script>
+        // جلب معرف الدرس من رابط URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const lessonId = urlParams.get('id') || 'math-01'; // درس افتراضي
+
+        let currentLesson = lessonsData[lessonId];
+
+        if (!currentLesson) {
+            currentLesson = lessonsData['math-01']; // العودة للدرس الأول في حال الخطأ
+        }
+
+        // عرض المحتوى المباشر
+        document.getElementById('pageTitle').innerText = currentLesson.title + ' | أكاديمية أمين';
+        document.getElementById('headerSubject').innerText = 'أكاديمية أمين - ' + currentLesson.subject;
+        document.getElementById('lessonLevel').innerText = currentLesson.level;
+        document.getElementById('lessonTitle').innerText = currentLesson.title;
+        document.getElementById('lessonDesc').innerText = currentLesson.description;
+        document.getElementById('lessonSummary').innerHTML = currentLesson.summary;
+        document.getElementById('exerciseQuestion').innerHTML = currentLesson.exercise.question;
+
+        if (currentLesson.hasTool) {
+            document.getElementById('toolCard').style.display = 'block';
+        }
+
         function calculatePGCD() {
             let a = parseInt(document.getElementById('numA').value);
             let b = parseInt(document.getElementById('numB').value);
+            if (!a || !b || a <= 0 || b <= 0) return alert("يرجى إدخال أعداد صحيحة.");
 
-            if (!a || !b || a <= 0 || b <= 0) {
-                alert("يرجى إدخال أعداد طبيعية أكبر من الصفر.");
-                return;
-            }
-
-            let originalA = a;
-            let originalB = b;
-            let steps = [];
-
+            let originalA = a, originalB = b, steps = [];
             while (b !== 0) {
                 let remainder = a % b;
                 let quotient = Math.floor(a / b);
                 steps.push(`${a} = ${b} × ${quotient} + ${remainder}`);
-                a = b;
-                b = remainder;
+                a = b; b = remainder;
             }
-
-            let pgcd = a;
-
             document.getElementById('resultOutput').style.display = 'block';
-            document.getElementById('finalResult').innerHTML = 
-                `📌 PGCD(${originalA}, ${originalB}) = <span style="color: #2563eb;">${pgcd}</span><br>` +
-                `💡 الكسر المختزل: <span style="color: #d97706;">${originalA/pgcd} / ${originalB/pgcd}</span>`;
-            
+            document.getElementById('finalResult').innerHTML = `📌 PGCD(${originalA}, ${originalB}) = <span style="color: #2563eb;">${a}</span>`;
             document.getElementById('stepsOutput').innerHTML = steps.join('<br>');
         }
 
-        // دالة التحقق من إجابة التمرين التفاعلي (PGCD لـ 306 و 132 هو 6)
         function checkExercise() {
-            let userAns = parseInt(document.getElementById('ansPgcd').value);
+            let userAns = document.getElementById('ansInput').value.trim();
             let feedback = document.getElementById('exerciseFeedback');
             feedback.style.display = 'block';
 
-            // PGCD(306, 132) = 6
-            if (userAns === 6) {
+            if (userAns === currentLesson.exercise.correctAnswer) {
                 feedback.style.background = '#dcfce7';
                 feedback.style.color = '#166534';
                 feedback.style.border = '1px solid #bbf7d0';
-                feedback.innerHTML = '🎉 إجابة صحيحة وممتازة! أحسنت. الكسر غير القابل للاختزال هو 51 / 22.';
+                feedback.innerHTML = currentLesson.exercise.successMsg;
             } else {
                 feedback.style.background = '#fee2e2';
                 feedback.style.color = '#991b1b';
                 feedback.style.border = '1px solid #fecaca';
-                feedback.innerHTML = '❌ إجابة غير دقيقة. حاول استخدام خوارزمية إقليدس بالقسمات المتتالية، القاسم المشترك الأكبر هو 6.';
+                feedback.innerHTML = currentLesson.exercise.errorMsg;
             }
         }
     </script>
