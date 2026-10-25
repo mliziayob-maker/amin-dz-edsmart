@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية أمين | البوابة الشاملة للتعليم بالذكاء الاصطناعي</title>
+    <title>أكاديمية أمين | البوابة الذكية للتعليم</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1e3a8a;
             --secondary: #2563eb;
             --accent: #d97706;
-            --bg: #0f172a;
-            --surface: #1e293b;
+            --bg: #090d16;
+            --surface: rgba(30, 41, 59, 0.7);
+            --surface-solid: #1e293b;
             --text: #f8fafc;
             --text-muted: #94a3b8;
-            --border: #334155;
+            --border: rgba(51, 65, 85, 0.6);
         }
 
         * {
@@ -31,71 +32,148 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
+            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg) 70%);
         }
 
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 520px;
         }
 
+        /* الهيدر العلوي */
         header {
             text-align: center;
-            margin-bottom: 25px;
-            margin-top: 15px;
+            margin: 20px 0;
+        }
+
+        .system-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background-color: #4ade80;
+            border-radius: 50%;
+            box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+            70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 1.85rem;
             color: #60a5fa;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 900;
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
         }
 
-        .card {
-            background: var(--surface);
-            border-radius: 20px;
-            padding: 24px 20px;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        /* شريط البحث الذكي */
+        .search-box {
+            position: relative;
             margin-bottom: 20px;
         }
 
-        .stage-title {
-            font-size: 1.1rem;
-            color: #60a5fa;
-            margin-bottom: 15px;
-            font-weight: bold;
-            border-right: 4px solid var(--accent);
-            padding-right: 10px;
+        .search-input {
+            width: 100%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 12px 16px 12px 40px;
+            border-radius: 14px;
+            color: white;
+            font-size: 0.9rem;
+            outline: none;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3px;
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* بطاقات الأطوار (Glassmorphism) */
+        .card {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 16px;
+        }
+
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
         }
 
-        .badge-dev {
+        .stage-title {
+            font-size: 1.05rem;
+            color: #f1f5f9;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-tag {
             font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .tag-active {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .tag-soon {
             background: rgba(217, 119, 6, 0.15);
-            color: var(--accent);
-            padding: 3px 8px;
-            border-radius: 6px;
+            color: #fbbf24;
+            border: 1px solid rgba(217, 119, 6, 0.3);
         }
 
-        .btn-grid {
+        /* شبكة الأزرار */
+        .grid-buttons {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
-        }
-
-        @media (min-width: 480px) {
-            .btn-grid {
-                grid-template-columns: 1fr 1fr;
-            }
         }
 
         .btn {
@@ -103,15 +181,15 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
             text-decoration: none;
-            padding: 12px 16px;
+            padding: 12px 10px;
             border-radius: 12px;
-            font-weight: bold;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 0.85rem;
             border: 1px solid var(--border);
-            transition: transform 0.2s, background 0.2s, border-color 0.2s;
+            transition: all 0.2s ease;
             text-align: center;
         }
 
@@ -121,37 +199,75 @@
             border-color: var(--secondary);
         }
 
-        .btn-active {
+        .btn-primary-custom {
             background: linear-gradient(135deg, var(--secondary), #1d4ed8);
             border: none;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
         }
 
-        .btn-active-accent {
+        .btn-accent-custom {
             background: linear-gradient(135deg, var(--accent), #b45309);
             border: none;
-            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+            color: white;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.35);
         }
 
-        .features-box {
-            background: rgba(255, 255, 255, 0.02);
+        .btn-full {
+            grid-column: span 2;
+        }
+
+        /* صندوق الإشعار الذكي */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--surface-solid);
             border: 1px solid var(--border);
-            padding: 18px;
-            border-radius: 16px;
-            margin-bottom: 20px;
+            padding: 24px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
         }
 
-        .features-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            font-size: 0.88rem;
-            color: #cbd5e1;
+        .modal-content h3 {
+            color: #60a5fa;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .modal-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .modal-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
         }
 
         footer {
-            margin-top: 20px;
-            font-size: 0.8rem;
+            margin-top: 15px;
+            font-size: 0.75rem;
             color: var(--text-muted);
             text-align: center;
             padding-bottom: 20px;
@@ -161,64 +277,100 @@
 <body>
 
     <div class="container">
+        <!-- الهيدر ومعرف الحالة -->
         <header>
+            <div class="system-badge">
+                <div class="pulse"></div>
+                <span>النظام الذكي نشط ومجاني 100%</span>
+            </div>
             <h1>Amin-Dz-Edsmart</h1>
-            <p class="subtitle">المدرسة الافتراضية الذكية - مطابقة لمناهج التربية الجزائرية</p>
+            <p class="subtitle">البوابة الافتراضية المتقدمة لمناهج التعليم الجزائرية</p>
         </header>
 
-        <!-- مميزات المنصة -->
-        <div class="features-box">
-            <div class="features-list">
-                <div>📚 تغطية شاملة لمناهج الأطوار التعليمية الثلاثة.</div>
-                <div>🤖 مرافقة ذكية وتفاعلية في حل التمارين.</div>
-                <div>⚡ خفيفة، مجانية تماماً، ومصممة خصيصاً للهاتف.</div>
-            </div>
+        <!-- شريط البحث الفوري -->
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن درس، مادة، أو مفهوم (مثل: PGCD، التكهرب)..." onkeyup="filterLessons()">
         </div>
 
-        <!-- 1. الطور المتوسط (BEM) - المفعل حالياً -->
-        <div class="card">
-            <div class="stage-title">
-                <span>📖 الطور المتوسط (BEM)</span>
-                <span class="badge-dev" style="background: rgba(34, 197, 94, 0.15); color: #22c55e;">نشط ومتاح</span>
+        <!-- 1. الطور المتوسط (BEM) - النشط -->
+        <div class="card" data-stage=" متوسط bem رياضيات فيزياء">
+            <div class="card-header">
+                <span class="stage-title">📖 الطور المتوسط (BEM)</span>
+                <span class="status-tag tag-active">متاح الآن</span>
             </div>
-            <div class="btn-grid">
-                <a href="lesson.html" class="btn btn-active-accent">📐 رياضيات (PGCD)</a>
-                <a href="physics.html" class="btn btn-active">⚡ فيزياء وتكنولوجيا</a>
-                <a href="#" onclick="alert('قريباً جداً: مادة اللغة العربية وأصول التعبير الكتابي!'); return false;" class="btn">📖 لغة عربية</a>
-                <a href="#" onclick="alert('قريباً جداً: مادة العلوم الطبيعية والحياة!'); return false;" class="btn">🧬 علوم طبيعية</a>
+            <div class="grid-buttons">
+                <a href="lesson.html" class="btn btn-accent-custom">📐 رياضيات (PGCD)</a>
+                <a href="physics.html" class="btn btn-primary-custom">⚡ فيزياء وتكنولوجيا</a>
+                <a href="#" onclick="showModal('اللغة العربية', 'قريباً جداً: قسم النصوص العبيرية وقواعد اللغة سيفتح ضمن التحديث القادم.'); return false;" class="btn">📖 لغة عربية</a>
+                <a href="#" onclick="showModal('العلوم الطبيعية', 'قريباً جداً: مختبر العلوم الطبيعية والحياة قيد التطوير الهندسي.'); return false;" class="btn">🧬 علوم طبيعية</a>
             </div>
         </div>
 
         <!-- 2. الطور الثانوي (Bac) -->
-        <div class="card">
-            <div class="stage-title">
-                <span>🎓 الطور الثانوي (BAC)</span>
-                <span class="badge-dev">قريباً</span>
+        <div class="card" data-stage=" ثانوي باك bac رياضيات فيزياء">
+            <div class="card-header">
+                <span class="stage-title">🎓 الطور الثانوي (BAC)</span>
+                <span class="status-tag tag-soon">قريباً</span>
             </div>
-            <div class="btn-grid">
-                <a href="#" onclick="alert('قسم الطور الثانوي قيد الإنشاء ضمن التحديثات القادمة!'); return false;" class="btn">📐 الرياضيات</a>
-                <a href="#" onclick="alert('قسم الطور الثانوي قيد الإنشاء ضمن التحديثات القادمة!'); return false;" class="btn">⚡ العلوم الفيزيائية</a>
-                <a href="#" onclick="alert('قسم الطور الثانوي قيد الإنشاء ضمن التحديثات القادمة!'); return false;" class="btn">🧬 علوم الطبيعة والياة</a>
-                <a href="#" onclick="alert('قسم الطور الثانوي قيد الإنشاء ضمن التحديثات القادمة!'); return false;" class="btn"> فلسفة وتاريخ</a>
+            <div class="grid-buttons">
+                <a href="#" onclick="showModal('الطور الثانوي', 'هذا القسم قيد الإنشاء الهندسي ليناسب تحضيرات شهادة البكالوريا.'); return false;" class="btn">📐 الرياضيات</a>
+                <a href="#" onclick="showModal('الطور الثانوي', 'هذا القسم قيد الإنشاء الهندسي ليناسب تحضيرات شهادة البكالوريا.'); return false;" class="btn">⚡ العلوم الفيزيائية</a>
+                <a href="#" onclick="showModal('الطور الثانوي', 'هذا القسم قيد الإنشاء الهندسي ليناسب تحضيرات شهادة البكالوريا.'); return false;" class="btn btn-full">🧬 علوم الطبيعة والحياة وفلسفة</a>
             </div>
         </div>
 
         <!-- 3. الطور الابتدائي -->
-        <div class="card">
-            <div class="stage-title">
-                <span>🎒 الطور الابتدائي</span>
-                <span class="badge-dev">قريباً</span>
+        <div class="card" data-stage=" ابتدائي رياضيات عربية">
+            <div class="card-header">
+                <span class="stage-title">🎒 الطور الابتدائي</span>
+                <span class="status-tag tag-soon">قريباً</span>
             </div>
-            <div class="btn-grid">
-                <a href="#" onclick="alert('قسم الطور الابتدائي سيفتح تدريجياً!'); return false;" class="btn">🔢 الرياضيات</a>
-                <a href="#" onclick="alert('قسم الطور الابتدائي سيفتح تدريجياً!'); return false;" class="btn">✍️ اللغة العربية</a>
+            <div class="grid-buttons">
+                <a href="#" onclick="showModal('الطور الابتدائي', 'برامج الابتدائي الذكية ستفتح تدريجياً لدعم البراعم الصغار.'); return false;" class="btn">🔢 أساسيات الرياضيات</a>
+                <a href="#" onclick="showModal('الطور الابتدائي', 'برامج الابتدائي الذكية ستفتح تدريجياً لدعم البراعم الصغار.'); return false;" class="btn">✍️ اللغة العربية</a>
             </div>
         </div>
 
         <footer>
-            <p>&copy; 2026 - Amin-Dz-Edsmart | برأس مال 0 دج | صُنع بـ ❤️ لتلاميذ الجزائر</p>
+            <p>&copy; 2026 - Amin-Dz-Edsmart | برأس مال 0 دج | صُنع بعناية لتلاميذ الجزائر</p>
         </footer>
     </div>
 
+    <!-- نافذة منبثقة تفاعلية ذكية -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">تنبيه النظام</h3>
+            <p id="modalText">محتوى النص هنا...</p>
+            <button class="modal-btn" onclick="closeModal()">حسناً، فهمت</button>
+        </div>
+    </div>
+
+    <script>
+        function showModal(title, text) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalText').innerText = text;
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
+        // وظيفة البحث الذكي السريع بين البطاقات
+        function filterLessons() {
+            let query = document.getElementById('searchInput').value.toLowerCase().trim();
+            let cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                let keywords = card.getAttribute('data-stage');
+                if (keywords.includes(query) || query === "") {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
