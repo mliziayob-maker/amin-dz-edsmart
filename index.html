@@ -107,7 +107,7 @@
         <div class="card">
             <div class="section-title">
                 <span>📚 مولّد الدروس والخرائط والتمارين التفاعلية</span>
-                <span style="font-size: 0.7rem; background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 2px 8px; border-radius: 6px;">توليد حي حقيقي</span>
+                <span style="font-size: 0.7rem; background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 2px 8px; border-radius: 6px;">توليد حي مضاعف</span>
             </div>
 
             <div class="form-group">
@@ -170,4 +170,101 @@
         };
 
         function updateLevels() {
-            const phase
+            const phase = document.getElementById('phaseSelect').value;
+            const levelSelect = document.getElementById('levelSelect');
+            levelSelect.innerHTML = '<option value="">-- اختر المستوى --</option>';
+
+            if (phase && levelsData[phase]) {
+                levelSelect.disabled = false;
+                levelsData[phase].forEach(lvl => {
+                    const opt = document.createElement('option');
+                    opt.value = lvl; opt.innerText = lvl;
+                    levelSelect.appendChild(opt);
+                });
+            } else {
+                levelSelect.disabled = true;
+            }
+        }
+
+        async function generateLiveLesson() {
+            const apiKey = document.getElementById('apiKeyInput').value.trim();
+            const level = document.getElementById('levelSelect').value;
+            const subject = document.getElementById('subjectInput').value.trim();
+            const title = document.getElementById('lessonTitleInput').value.trim();
+
+            if (!apiKey) {
+                alert("يرجى إدخال مفتاح Gemini API في الخانة المخصصة!");
+                return;
+            }
+            if (!level || !subject || !title) {
+                alert("يرجى ملء جميع الحقول (المستوى، المادة، عنوان الدرس)!");
+                return;
+            }
+
+            localStorage.setItem('gemini_api_key', apiKey);
+
+            const loader = document.getElementById('loader');
+            const btnText = document.getElementById('btnText');
+            loader.style.display = 'block';
+            btnText.innerText = 'جاري الاتصال بالمحرك الذكي المضاعف...';
+
+            const prompt = `أنت أستاذ ومستشار تربوي خبير في المناهج التعليمية الجزائرية لوزارة التربية الوطنية.
+قم بتوليد درس علمي ودقيق 100%.
+المستوى: ${level}
+المادة: ${subject}
+عنوان الدرس: ${title}
+
+قم بتنسيق الإجابة بلغة HTML بسيطة (باستخدام <h3>, <strong>, <p>, <ul>, <li>) وتحتوي على:
+1. الشرح العلمي التفصيلي والمفاهيم الجوهرية للدرس.
+2. الخريطة الذهنية والمخطط المفاهيمي.
+3. بنك تمارين تفاعلية حقيقية مع الحلول والتعليل.`;
+
+            // قائمة النماذج الاحتياطية لتجربتها تلقائياً (Fallback Models)
+            const models = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.5-flash"];
+            let successData = null;
+            let lastError = "";
+
+            for (let model of models) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }]
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (!response.ok) {
+                        lastError = data.error?.message || `HTTP error! status: ${response.status}`;
+                        continue; // تجربة النموذج الموالي
+                    }
+
+                    if (data.candidates && data.candidates[0].content.parts[0].text) {
+                        successData = data.candidates[0].content.parts[0].text;
+                        break; // نجح الاتصال
+                    }
+                } catch (err) {
+                    lastError = err.message;
+                }
+            }
+
+            loader.style.display = 'none';
+            btnText.innerText = '✨ توليد الدرس والشرح والخريطة والتمارين حياً';
+
+            if (successData) {
+                let generatedHtml = successData.replace(/```html/g, '').replace(/```/g, '');
+                document.getElementById('resBadge').innerText = `${level} | مادة: ${subject}`;
+                document.getElementById('resTitle').innerText = `📖 ${title}`;
+                document.getElementById('resContent').innerHTML = generatedHtml;
+
+                document.getElementById('outputContainer').classList.add('active');
+                document.getElementById('outputContainer').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert("⚠️ تنبيه تقني من المجلس المضاعف: " + (lastError || "فشل الاتصال بجميع النماذج المتاحة. تأكد من صحة المفتاح."));
+            }
+        }
+    </script>
+</body>
+    </html>
+    
