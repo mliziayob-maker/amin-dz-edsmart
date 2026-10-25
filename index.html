@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية أمين | البوابة الشاملة لجميع المستويات</title>
+    <title>أكاديمية أمين | الخريطة الشاملة لجميع المستويات والشعب</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -31,13 +31,13 @@
             background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg) 70%);
         }
 
-        .container { width: 100%; max-width: 540px; }
+        .container { width: 100%; max-width: 560px; }
 
         header { text-align: center; margin: 15px 0; }
         h1 { font-size: 1.7rem; color: #60a5fa; margin-bottom: 4px; font-weight: 900; }
         .subtitle { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 15px; }
 
-        /* شريط البحث المطور ليظهر كاملاً */
+        /* شريط البحث الفوري */
         .search-box { position: relative; margin-bottom: 20px; }
         .search-input {
             width: 100%; background: var(--surface); border: 1px solid var(--border);
@@ -62,9 +62,9 @@
         .tag-active { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
         .tag-soon { background: rgba(217, 119, 6, 0.15); color: #fbbf24; border: 1px solid rgba(217, 119, 6, 0.3); }
 
-        .sub-category { font-size: 0.85rem; color: #60a5fa; margin: 10px 0 6px 0; font-weight: bold; }
+        .sub-category { font-size: 0.83rem; color: #60a5fa; margin: 12px 0 6px 0; font-weight: bold; border-right: 2px solid var(--accent); padding-right: 6px; }
         
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px; }
         .btn {
             display: flex; align-items: center; justify-content: center; gap: 6px;
             background: rgba(255, 255, 255, 0.04); color: var(--text); text-decoration: none;
@@ -76,7 +76,7 @@
         .btn-primary { background: linear-gradient(135deg, var(--secondary), #1d4ed8); border: none; color: white; }
         .btn-full { grid-column: span 2; }
 
-        /* نافذة منبثقة */
+        /* نافذة منبثقة تفاعلية */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
@@ -98,79 +98,92 @@
     <div class="container">
         <header>
             <h1>Amin-Dz-Edsmart</h1>
-            <p class="subtitle">البوابة الشاملة لجميع الأطوار والمستويات التعليمية في الجزائر</p>
+            <p class="subtitle">الدليل الشامل لكل المستويات والشعب التعليمية في الجزائر</p>
         </header>
 
-        <!-- شريط البحث السريع المصلح -->
+        <!-- شريط البحث الفوري -->
         <div class="search-box">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن مستواك (مثل: الأولى متوسط، البكالوريا)..." onkeyup="filterLevels()">
+            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن مستواك أو شعبتك بدقة..." onkeyup="filterLevels()">
         </div>
 
-        <!-- 1. الطور المتوسط (كامل المستويات) -->
-        <div class="card" data-key="متوسط أولى ثانية ثالثة رابعة bem">
+        <!-- 1. التعليم الابتدائي (السنوات الخمس مفصلة) -->
+        <div class="card" data-key="ابتدائي أولى ثانية ثالثة رابعة خامسة">
+            <div class="card-header">
+                <span class="stage-title">🎒 التعليم الابتدائي</span>
+                <span class="status-tag tag-soon">قريباً</span>
+            </div>
+            <div class="sub-category">سنوات التعليم الابتدائي (من 1 إلى 5)</div>
+            <div class="btn-grid">
+                <button class="btn" onclick="showModal('السنة الأولى ابتدائي', 'برامج ومناهج السنة الأولى ابتدائي قيد التحضير.')">السنة الأولى</button>
+                <button class="btn" onclick="showModal('السنة الثانية ابتدائي', 'برامج ومناهج السنة الثانية ابتدائي قيد التحضير.')">السنة الثانية</button>
+                <button class="btn" onclick="showModal('السنة الثالثة ابتدائي', 'برامج ومناهج السنة الثالثة ابتدائي قيد التحضير.')">السنة الثالثة</button>
+                <button class="btn" onclick="showModal('السنة الرابعة ابتدائي', 'برامج ومناهج السنة الرابعة ابتدائي قيد التحضير.')">السنة الرابعة</button>
+                <button class="btn btn-full" onclick="showModal('السنة الخامسة ابتدائي', 'تحضيرات شهادة التعليم الابتدائي قيد التحضير.')">السنة الخامسة (نهاية الابتدائي)</button>
+            </div>
+        </div>
+
+        <!-- 2. التعليم المتوسط (السنوات الأربع مفصلة) -->
+        <div class="card" data-key="متوسط أولى ثانية ثالثة رابعة bem رياضيات فيزياء">
             <div class="card-header">
                 <span class="stage-title">📖 التعليم المتوسط (CEM)</span>
-                <span class="status-tag tag-active">نشط ومتاح</span>
+                <span class="status-tag tag-active">مفعل</span>
             </div>
             
-            <div class="sub-category">📚 السنة الرابعة متوسط (BEM - مفعلة)</div>
+            <div class="sub-category">السنة الرابعة متوسط (BEM - نشطة)</div>
             <div class="btn-grid">
                 <a href="lesson.html" class="btn btn-accent">📐 رياضيات (PGCD)</a>
                 <a href="physics.html" class="btn btn-primary">⚡ فيزياء وتكنولوجيا</a>
             </div>
 
-            <div class="sub-category">📖 باقي مستويات المتوسط</div>
+            <div class="sub-category">باقي مستويات المتوسط</div>
             <div class="btn-grid">
-                <button class="btn" onclick="showModal('السنة الأولى متوسط', 'برامج ومناهج السنة الأولى متوسط قيد الإعداد الهندسي.')">الأولى متوسط</button>
-                <button class="btn" onclick="showModal('السنة الثانية متوسط', 'برامج ومناهج السنة الثانية متوسط قيد الإعداد الهندسي.')">الثانية متوسط</button>
-                <button class="btn btn-full" onclick="showModal('السنة الثالثة متوسط', 'برامج ومناهج السنة الثالثة متوسط قيد الإعداد الهندسي.')">الثالثة متوسط</button>
+                <button class="btn" onclick="showModal('السنة الأولى متوسط', 'دروس ومناهج السنة الأولى متوسط قيد الإعداد.')">السنة الأولى</button>
+                <button class="btn" onclick="showModal('السنة الثانية متوسط', 'دروس ومناهج السنة الثانية متوسط قيد الإعداد.')">السنة الثانية</button>
+                <button class="btn btn-full" onclick="showModal('السنة الثالثة متوسط', 'دروس ومناهج السنة الثالثة متوسط قيد الإعداد.')">السنة الثالثة متوسط</button>
             </div>
         </div>
 
-        <!-- 2. الطور الثانوي (كامل المستويات والشعب) -->
-        <div class="card" data-key="ثانوي أولى جذع مشترك عيون رياضي تقني تسيير آداب بكالوريا bac">
+        <!-- 3. التعليم الثانوي (الجذوع المشتركة والشعب لكل سنة) -->
+        <div class="card" data-key="ثانوي جذع مشترك علوم آداب ثانية ثالثة بكالوريا bac علوم تجريبية رياضيات تقني رياضي تسيير اقتصاد فلسفة لغات">
             <div class="card-header">
                 <span class="stage-title">🎓 التعليم الثانوي (BAC)</span>
                 <span class="status-tag tag-soon">قريباً</span>
             </div>
 
-            <div class="sub-category">🔬 جذوع مشتركة (السنة الأولى)</div>
+            <div class="sub-category">السنة الأولى ثانوي (الجذوع المشتركة)</div>
             <div class="btn-grid">
-                <button class="btn" onclick="showModal('جذع مشترك علوم وتكنولوجيا', 'مناهج الجذع المشترك علوم قيد التطوير.')">جذع مشترك علوم</button>
-                <button class="btn" onclick="showModal('جذع مشترك آداب', 'مناهج الجذع المشترك آداب قيد التطوير.')">جذع مشترك آداب</button>
+                <button class="btn" onclick="showModal('جذع مشترك علوم وتكنولوجيا', 'مناهج جذع مشترك علوم قيد التجهيز.')">جذع مشترك علوم</button>
+                <button class="btn" onclick="showModal('جذع مشترك آداب', 'مناهج جذع مشترك آداب قيد التجهيز.')">جذع مشترك آداب</button>
             </div>
 
-            <div class="sub-category">⚡ السنة الثانية والثالثة ثانوي (الشعب)</div>
+            <div class="sub-category">السنة الثانية ثانوي (الشعب)</div>
             <div class="btn-grid">
-                <button class="btn" onclick="showModal('علوم تجريبية', 'دروس علوم تجريبية (رياضيات، فيزياء، علوم) قريباً.')">علوم تجريبية</button>
-                <button class="btn" onclick="showModal('رياضيات وتقني رياضي', 'شعبة الرياضيات والتقني قريباً.')">رياضيات / تقني</button>
-                <button class="btn" onclick="showModal('تسيير واقتصاد', 'مناهج التسيير المحاسبي والمالي قريباً.')">تسيير واقتصاد</button>
-                <button class="btn" onclick="showModal('آداب وفلسفة', 'مناهج الآداب والفلسفة واللغات قريباً.')">آداب وفلسفة</button>
-            </div>
-        </div>
-
-        <!-- 3. الطور الابتدائي (كامل المستويات) -->
-        <div class="card" data-key="ابتدائي تحضيري أولى ثانية ثالثة رابعة خامسة">
-            <div class="card-header">
-                <span class="stage-title">🎒 التعليم الابتدائي</span>
-                <span class="status-tag tag-soon">قريباً</span>
+                <button class="btn" onclick="showModal('علوم تجريبية - سنة 2', 'مناهج السنة الثانية علوم تجريبية قريباً.')">علوم تجريبية</button>
+                <button class="btn" onclick="showModal('رياضيات - سنة 2', 'مناهج السنة الثانية رياضيات قريباً.')">رياضيات</button>
+                <button class="btn" onclick="showModal('تقني رياضي - سنة 2', 'مناهج تقني رياضي قريباً.')">تقني رياضي</button>
+                <button class="btn" onclick="showModal('تسيير واقتصاد - سنة 2', 'مناهج تسيير واقتصاد قريباً.')">تسيير واقتصاد</button>
+                <button class="btn" onclick="showModal('آداب وفلسفة - سنة 2', 'مناهج آداب وفلسفة قريباً.')">آداب وفلسفة</button>
+                <button class="btn" onclick="showModal('لغات أجنبية - سنة 2', 'مناهج لغات أجنبية قريباً.')">لغات أجنبية</button>
             </div>
 
-            <div class="sub-category">🌱 المستويات الأساسية للصغار</div>
+            <div class="sub-category">السنة الثالثة ثانوي (تحضير البكالوريا BAC)</div>
             <div class="btn-grid">
-                <button class="btn" onclick="showModal('السنة الأولى والثانية ابتدائي', 'برامج التأسيس والحساب للسنوات الأولى قريباً.')">السنوات (1 و 2)</button>
-                <button class="btn" onclick="showModal('السنة الثالثة والرابعة ابتدائي', 'مناهج السنوات الثالثة والرابعة قريباً.')">السنوات (3 و 4)</button>
-                <button class="btn btn-full" onclick="showModal('السنة الخامسة ابتدائي (الانتقال)', 'تحضيرات شهادة التعليم الابتدائي قريباً.')">السنة الخامسة (الابتدائي)</button>
+                <button class="btn" onclick="showModal('علوم تجريبية - باك', 'مراجعات البكالوريا علوم تجريبية قريباً.')">علوم تجريبية (BAC)</button>
+                <button class="btn" onclick="showModal('رياضيات - باك', 'مراجعات البكالوريا رياضيات قريباً.')">رياضيات (BAC)</button>
+                <button class="btn" onclick="showModal('تقني رياضي - باك', 'مراجعات البكالوريا تقني رياضي قريباً.')">تقني رياضي (BAC)</button>
+                <button class="btn" onclick="showModal('تسيير واقتصاد - باك', 'مراجعات البكالوريا تسيير واقتصاد قريباً.')">تسيير واقتصاد (BAC)</button>
+                <button class="btn" onclick="showModal('آداب وفلسفة - باك', 'مراجعات البكالوريا آداب وفلسفة قريباً.')">آداب وفلسفة (BAC)</button>
+                <button class="btn" onclick="showModal('لغات أجنبية - باك', 'مراجعات البكالوريا لغات أجنبية قريباً.')">لغات أجنبية (BAC)</button>
             </div>
         </div>
 
         <footer>
-            <p>&copy; 2026 - Amin-Dz-Edsmart | برأس مال 0 دج | بناء هندسي متكامل</p>
+            <p>&copy; 2026 - Amin-Dz-Edsmart | برأس مال 0 دج | الدليل الكامل للمستويات</p>
         </footer>
     </div>
 
-    <!-- نافذة منبثقة تفاعلية -->
+    <!-- نافذة منبثقة -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle">تنبيه النظام</h3>
@@ -190,7 +203,6 @@
             document.getElementById('infoModal').style.display = 'none';
         }
 
-        // محرك البحث الفوري لتصفية المستويات
         function filterLevels() {
             let query = document.getElementById('searchInput').value.toLowerCase().trim();
             let cards = document.querySelectorAll('.card');
