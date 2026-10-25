@@ -115,15 +115,15 @@
             <div id="lessonSummary"></div>
         </div>
 
-        <!-- أداة تفاعلية حاسبة (تظهر فقط للدروس ذات الأدوات) -->
+        <!-- أداة تفاعلية حاسبة -->
         <div class="card" id="toolCard" style="display: none;">
-            <h2>🤖 المساعد الذكي: حاسبة وشرح PGCD</h2>
+            <h2>🤖 المساعد الذكي: حاسبة وشرح الخطوات</h2>
             <div class="interactive-box">
                 <div class="input-group">
                     <input type="number" id="numA" placeholder="العدد الأول (a)" value="221">
                     <input type="number" id="numB" placeholder="العدد الثاني (b)" value="85">
                 </div>
-                <button onclick="calculatePGCD()">احسب وشرح الخطوات</button>
+                <button onclick="calculateTool()">احسب وشرح الخطوات</button>
                 <div id="resultOutput" style="display: none;">
                     <div class="result-area" id="finalResult"></div>
                     <div class="step-list" id="stepsOutput"></div>
@@ -149,19 +149,57 @@
         <p>&copy; 2026 - Amin-Dz-Edsmart | جميع الحقوق محفوظة</p>
     </footer>
 
-    <!-- تحميل ملف قاعدة البيانات -->
-    <script src="lessons-data.js"></script>
-
     <script>
+        // قاعدة بيانات الدروس الداخلية المدمجة لتفادي مشاكل التحميل الخارجي
+        const lessonsData = {
+            "math-01": {
+                subject: "الرياضيات",
+                level: "السنة الرابعة متوسط - BEM",
+                title: "المقطع 01: القاسم المشترك الأكبر (PGCD) والكسور غير القابلة للاختزال",
+                description: "درس مفاهيمي ملخص وفق المنهج التربوي الرسمي للديوان الوطني للمسابقات والامتحانات.",
+                summary: `
+                    <p>نسمي القاسم المشترك الأكبر لعددين طبيعيين غير معدومين $a$ و $b$ أكبر قاسم يشتركان فيه، ونرمز له بـ: <strong>PGCD(a, b)</strong>.</p>
+                    <ul>
+                        <li><strong>خوارزمية إقليدس (القسمات المتتالية):</strong> الأسرع والأكثر اعتماداً في شهادة BEM.</li>
+                        <li><strong>الكسر غير القابل للاختزال:</strong> يكون الكسر غير قابل للاختزال إذا كان PGCD البسط والمقام يساوي 1.</li>
+                    </ul>
+                `,
+                hasTool: true,
+                exercise: {
+                    question: "<strong>تمرين تطبيقي:</strong> احسب القاسم المشترك الأكبر للعددين <strong>306</strong> و <strong>132</strong>.",
+                    correctAnswer: "6",
+                    successMsg: "🎉 إجابة صحيحة وممتازة! أحسنت. الكسر غير القابل للاختزال هو 51 / 22.",
+                    errorMsg: "❌ إجابة غير دقيقة. القاسم المشترك الأكبر هو 6 (استخدم خوارزمية إقليدس)."
+                }
+            },
+            "physics-01": {
+                subject: "الفيزياء والتكنولوجيا",
+                level: "السنة الرابعة متوسط - BEM",
+                title: "المقطع 01: الظواهر الكهربائية (الشحنة والتكهرب)",
+                description: "شرح شامل لمفهوم التكهرب والنموذج المبسط للذرة وفق المنهج الرسمي.",
+                summary: `
+                    <p>التكهرب هو ظاهرة اكتساب الجسم لشحنة كهربائية نتيجة فقدان أو كسب إلكترونات:</p>
+                    <ul>
+                        <li><strong>طرق التكهرب:</strong> بالدلك، باللمس، وبالتأثير.</li>
+                        <li><strong>الشحنة الكهربائية:</strong> الشحنة الموجبة (+) تظهر على الزجاج، والشحنة السالبة (-) تظهر على إيبونيت أو البلاستيك.</li>
+                        <li><strong>النواقل والعوازل:</strong> النواقل تسمح بمرور الإلكترونات عبرها عكس العوازل.</li>
+                    </ul>
+                `,
+                hasTool: false,
+                exercise: {
+                    question: "<strong>تمرين تطبيقي:</strong> عند دلك قضيب من الإيبونيت بقطعة قماش، ما هي نوع الشحنة الكهربائية التي يكتسبها؟ (اكتب: سالبة)",
+                    correctAnswer: "سالبة",
+                    successMsg: "🎉 إجابة صحيحة! الإيبونيت المدلوك يكتسب شحنة كهربائية سالبة دائماً.",
+                    errorMsg: "❌ إجابة خاطئة! القضيب من الإيبونيت يكتسب شحنة سالبة نتيجة اكتسابه لإلكترونات."
+                }
+            }
+        };
+
         // جلب معرف الدرس من رابط URL
         const urlParams = new URLSearchParams(window.location.search);
-        const lessonId = urlParams.get('id') || 'math-01'; // درس افتراضي
+        const lessonId = urlParams.get('id') || 'math-01';
 
-        let currentLesson = lessonsData[lessonId];
-
-        if (!currentLesson) {
-            currentLesson = lessonsData['math-01']; // العودة للدرس الأول في حال الخطأ
-        }
+        let currentLesson = lessonsData[lessonId] || lessonsData['math-01'];
 
         // عرض المحتوى المباشر
         document.getElementById('pageTitle').innerText = currentLesson.title + ' | أكاديمية أمين';
@@ -176,7 +214,7 @@
             document.getElementById('toolCard').style.display = 'block';
         }
 
-        function calculatePGCD() {
+        function calculateTool() {
             let a = parseInt(document.getElementById('numA').value);
             let b = parseInt(document.getElementById('numB').value);
             if (!a || !b || a <= 0 || b <= 0) return alert("يرجى إدخال أعداد صحيحة.");
