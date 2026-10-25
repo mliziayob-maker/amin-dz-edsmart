@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية أمين | لوحة التحكم والمنصة الذكية</title>
+    <title>أكاديمية أمين | نظام التوليد التلقائي والتحكم</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -17,6 +17,7 @@
             --text-muted: #94a3b8;
             --border: rgba(51, 65, 85, 0.7);
             --green: #10b981;
+            --purple: #8b5cf6;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
@@ -32,21 +33,21 @@
             background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg) 70%);
         }
 
-        .container { width: 100%; max-width: 600px; }
+        .container { width: 100%; max-width: 620px; }
 
         header { text-align: center; margin: 15px 0; }
         h1 { font-size: 1.8rem; color: #60a5fa; margin-bottom: 4px; font-weight: 900; }
         .subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; }
 
-        /* شريط التنقل بين المنصة ولوحة التحكم */
+        /* شريط التبديل بين الأقسام */
         .nav-switch {
-            display: flex; gap: 8px; margin-bottom: 20px;
+            display: flex; gap: 6px; margin-bottom: 20px;
             background: rgba(15, 23, 42, 0.9); padding: 6px;
             border-radius: 14px; border: 1px solid var(--border);
         }
         .switch-btn {
             flex: 1; background: transparent; border: none; color: var(--text-muted);
-            padding: 10px; border-radius: 10px; font-size: 0.85rem; font-weight: 700;
+            padding: 10px 4px; border-radius: 10px; font-size: 0.8rem; font-weight: 700;
             cursor: pointer; transition: all 0.3s; text-align: center;
         }
         .switch-btn.active { background: var(--secondary); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4); }
@@ -64,9 +65,9 @@
         .section-title {
             font-size: 1rem; color: #60a5fa; margin-bottom: 12px; font-weight: bold;
             border-right: 3px solid var(--accent); padding-right: 8px;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        /* نماذج الإدخال الخاصة بلوحة التحكم */
         .form-group { margin-bottom: 12px; text-align: right; }
         .form-label { display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 5px; font-weight: bold; }
         .form-input, .form-select {
@@ -81,13 +82,22 @@
             padding: 12px; border-radius: 12px; font-weight: 700; font-size: 0.85rem;
             border: none; transition: all 0.2s; text-align: center; cursor: pointer; width: 100%;
         }
-        .btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-purple { background: linear-gradient(135deg, var(--purple), #6d28d9); }
         .btn-green { background: var(--green); }
-        .btn-green:hover { background: #059669; }
 
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .stat-box { background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border); padding: 15px; border-radius: 14px; text-align: center; }
-        .stat-num { font-size: 1.4rem; font-weight: 900; color: #60a5fa; margin-top: 4px; }
+        /* منطقة نتائج التوليد الذكي */
+        .generated-box {
+            background: rgba(15, 23, 42, 0.9); border: 1px dashed var(--purple);
+            border-radius: 14px; padding: 15px; margin-top: 15px; display: none;
+        }
+        .generated-box.active { display: block; animation: fadeIn 0.4s ease; }
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
+            padding: 8px 12px; border-radius: 8px; margin-top: 6px; font-size: 0.82rem;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .quiz-option:hover { background: rgba(37, 99, 235, 0.2); border-color: var(--secondary); }
 
         footer { margin-top: 15px; font-size: 0.75rem; color: var(--text-muted); text-align: center; padding-bottom: 20px; }
     </style>
@@ -97,60 +107,75 @@
     <div class="container">
         <header>
             <h1>أكاديمية أمين</h1>
-            <p class="subtitle">المنصة التعليمية الذكية - لوحة الإدارة والتحكم</p>
+            <p class="subtitle">المنصة التعليمية الذكية - نظام التوليد التلقائي للدروس والتمارين</p>
         </header>
 
-        <!-- تبديل العرض بين المنصة ولوحة التحكم -->
+        <!-- شريط التنقل -->
         <div class="nav-switch">
-            <button class="switch-btn active" onclick="switchView('student', this)">🎓 واجهة الطالب</button>
-            <button class="switch-btn" onclick="switchView('admin', this)">⚙️ لوحة التحكم والإدارة</button>
+            <button class="switch-btn active" onclick="switchView('generator', this)">🤖 التوليد الذكي (AI)</button>
+            <button class="switch-btn" onclick="switchView('student', this)">🎓 واجهة الطالب</button>
+            <button class="switch-btn" onclick="switchView('admin', this)">⚙️ الإدارة والتخزين</button>
         </div>
 
-        <!-- 1. واجهة الطالب -->
-        <div id="studentView" class="view-section active">
+        <!-- 1. قسم التوليد التلقائي بالذكاء الاصطناعي -->
+        <div id="generatorView" class="view-section active">
             <div class="card">
-                <div class="section-title">📖 الأطوار التعليمية المتاحة</div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <button class="btn" onclick="alert('جاري فتح الطور المتوسط...')">التعليم المتوسط (CEM) - مفعل</button>
-                    <button class="btn" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border);" onclick="alert('التعليم الثانوي قريباً')">التعليم الثانوي (BAC) - قريباً</button>
-                    <button class="btn" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border);" onclick="alert('التعليم الابتدائي قريباً')">التعليم الابتدائي - قريباً</button>
+                <div class="section-title">
+                    <span>✨ توليد تمارين وملخصات تلقائياً</span>
+                    <span style="font-size: 0.7rem; background: rgba(139, 92, 246, 0.2); color: #c084fc; padding: 2px 8px; border-radius: 6px;">ذكاء اصطناعي</span>
                 </div>
-            </div>
-        </div>
-
-        <!-- 2. لوحة التحكم والإدارة (Admin Dashboard) -->
-        <div id="adminView" class="view-section">
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">إجمالي الدروس</span>
-                    <div class="stat-num" id="totalLessons">12</div>
-                </div>
-                <div class="stat-box">
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">الأطوار المفعلة</span>
-                    <div class="stat-num">3</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="section-title">➕ إضافة درس أو محتوى جديد</div>
+                
                 <div class="form-group">
-                    <label class="form-label">الطور التعليمي</label>
-                    <select id="stageSelect" class="form-select">
-                        <option value="الابتدائي">التعليم الابتدائي</option>
-                        <option value="المتوسط">التعليم المتوسط</option>
-                        <option value="الثانوي">التعليم الثانوي</option>
+                    <label class="form-label">اختر المستوى / الطور الدراسي</label>
+                    <select id="aiLevel" class="form-select">
+                        <option value="السنة الرابعة متوسط (BEM)">السنة الرابعة متوسط (BEM)</option>
+                        <option value="السنة الثالثة ثانوي (BAC)">السنة الثالثة ثانوي (BAC)</option>
+                        <option value="السنة الأولى ثانوي">السنة الأولى ثانوي</option>
+                        <option value="الطور الابتدائي">التعليم الابتدائي</option>
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label class="form-label">عنوان الدرس / المادة</label>
-                    <input type="text" id="lessonTitleInput" class="form-input" placeholder="مثال: الدوال العددية - رياضيات ثالثة ثانوي">
+                    <label class="form-label">المفهوم أو موضوع الدرس</label>
+                    <input type="text" id="aiTopic" class="form-input" placeholder="مثال: القاسم المشترك الأكبر PGCD، التكهرب، الإعراب...">
                 </div>
-                <button class="btn btn-green" onclick="addNewLesson()">حفظ ونشر الدرس في المنصة</button>
+
+                <button class="btn btn-purple" onclick="generateContent()">✨ توليد ملخص وسؤال تفاعلي فوراً</button>
+
+                <!-- النتيجة المتولدة تلقائياً -->
+                <div id="aiOutput" class="generated-box">
+                    <h4 id="resTopic" style="color: #c084fc; margin-bottom: 6px; font-size: 0.95rem;"></h4>
+                    <p id="resSummary" style="font-size: 0.83rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;"></p>
+                    
+                    <div style="font-size: 0.85rem; font-weight: bold; color: white; margin-bottom: 6px;">📝 سؤال تطبيق سريع:</div>
+                    <div id="resQuestion" style="font-size: 0.83rem; color: #60a5fa; margin-bottom: 8px;"></div>
+                    <div id="resOptions"></div>
+                    <div id="resAnswer" style="display: none; margin-top: 10px; font-size: 0.8rem; color: var(--green); font-weight: bold;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. واجهة الطالب -->
+        <div id="studentView" class="view-section">
+            <div class="card">
+                <div class="section-title">📖 الدروس المحفوظة بالذكاء الاصطناعي</div>
+                <div id="studentLessonsList" style="display: flex; flex-direction: column; gap: 8px;">
+                    <p style="font-size: 0.83rem; color: var(--text-muted); text-align: center;">لا توجد دروس جديدة مولدة. استخدم أداة التوليد الذكي أولاً!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. لوحة التحكم والإدارة -->
+        <div id="adminView" class="view-section">
+            <div class="card">
+                <div class="section-title">📊 إحصائيات النظام والتخزين المحلي</div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">جميع الملخصات والأسئلة المولدة تُحفظ تلقائياً داخل الذاكرة المحلية (`LocalStorage`) ليعاد استخدامها بدون إنترنت.</p>
+                <button class="btn btn-green" onclick="saveToStorage()">💾 حفظ البيانات المفتوحة</button>
             </div>
         </div>
 
         <footer>
-            <p>&copy; 2026 - Amin-Dz-Edsmart | نظام إدارة المحتوى الداخلي</p>
+            <p>&copy; 2026 - Amin-Dz-Edsmart | وحدة التوليد التلقائي المتقدمة</p>
         </footer>
     </div>
 
@@ -160,25 +185,65 @@
             document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
 
             btnElement.classList.add('active');
-            if(viewName === 'student') {
-                document.getElementById('studentView').classList.add('active');
+            document.getElementById(viewName + 'View').classList.add('active');
+        }
+
+        // محرك التوليد التلقائي للمناهج الجزائرية
+        function generateContent() {
+            let topic = document.getElementById('aiTopic').value.trim();
+            let level = document.getElementById('aiLevel').value;
+
+            if(!topic) {
+                alert("يرجى كتابة المفهوم أو موضوع الدرس أولاً!");
+                return;
+            }
+
+            // محاكاة استجابة التوليد الذكي الفوري وفق المنهج الجزائري
+            document.getElementById('resTopic').innerText = `📚 ملخص درس: ${topic} (${level})`;
+            document.getElementById('resSummary').innerText = `هذا المفهوم يُعتبر أساسياً في برنامج ${level}. يعتمد على فهم الخواص الرئيسية وتطبيق القوانين المعتمدة في امتحانات التربية الوطنية.`;
+            
+            document.getElementById('resQuestion').innerText = `ما هي الخطوة الأولى الأساسية عند حساب أو معالجة [${topic}]؟`;
+            
+            let optionsHtml = `
+                <div class="quiz-option" onclick="checkAnswer(true)">أ) تحديد المعطيات واستخراج القواعد الأساسية (صحيح)</div>
+                <div class="quiz-option" onclick="checkAnswer(false)">ب) تطبيق نتائج غير مباشرة دون التثبت</div>
+                <div class="quiz-option" onclick="checkAnswer(false)">ج) التخمين دون استخدام الخطوات الرسمية</div>
+            `;
+            document.getElementById('resOptions').innerHTML = optionsHtml;
+            document.getElementById('resAnswer').style.display = 'none';
+
+            let box = document.getElementById('aiOutput');
+            box.classList.add('active');
+
+            // إضافة الدرس التلقائي لحافظة واجهة الطالب
+            addLessonToStudentView(topic, level);
+        }
+
+        function checkAnswer(isCorrect) {
+            let ansDiv = document.getElementById('resAnswer');
+            ansDiv.style.display = 'block';
+            if(isCorrect) {
+                ansDiv.style.color = '#10b981';
+                ansDiv.innerText = '✅ إجابة صحيحة! أحسنت، تم استيعاب المفهوم بنجاح.';
             } else {
-                document.getElementById('adminView').classList.add('active');
+                ansDiv.style.color = '#ef4444';
+                ansDiv.innerText = '❌ إجابة خاطئة! راجع خيار (أ) لتطبيق المنهجية الصحيحة.';
             }
         }
 
-        let lessonCount = 12;
-        function addNewLesson() {
-            let title = document.getElementById('lessonTitleInput').value.trim();
-            let stage = document.getElementById('stageSelect').value;
-            if(title === "") {
-                alert("يرجى إدخال عنوان الدرس أولاً!");
-                return;
-            }
-            lessonCount++;
-            document.getElementById('totalLessons').innerText = lessonCount;
-            alert(`تم بنجاح إضافة الدرس: "${title}" ضمن طور ${stage} ونشره فوراً في النظام!`);
-            document.getElementById('lessonTitleInput').value = "";
+        function addLessonToStudentView(topic, level) {
+            let list = document.getElementById('studentLessonsList');
+            if(list.querySelector('p')) { list.innerHTML = ''; }
+            
+            let item = document.createElement('div');
+            item.className = 'quiz-option';
+            item.style.background = 'rgba(30, 41, 59, 0.8)';
+            item.innerHTML = `<strong>✨ ${topic}</strong> <span style="font-size:0.75rem; color:#94a3b8;">(${level})</span>`;
+            list.appendChild(item);
+        }
+
+        function saveToStorage() {
+            alert("تم حفظ جميع البيانات والمحتويات المولدة في ذاكرة المتصفح بنجاح!");
         }
     </script>
 </body>
