@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية أمين | قاعدة البيانات التعليمية الكبرى والتمارين التفاعلية</title>
+    <title>أكاديمية أمين | المنصة الذكية الحيّة للمناهج الجزائرية</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,7 +18,6 @@
             --border: rgba(51, 65, 85, 0.7);
             --green: #10b981;
             --purple: #8b5cf6;
-            --pink: #ec4899;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
@@ -34,28 +33,11 @@
             background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg) 70%);
         }
 
-        .container { width: 100%; max-width: 720px; }
+        .container { width: 100%; max-width: 680px; }
 
         header { text-align: center; margin: 15px 0 20px 0; }
         h1 { font-size: 1.9rem; color: #60a5fa; margin-bottom: 4px; font-weight: 900; }
         .subtitle { font-size: 0.85rem; color: var(--text-muted); }
-
-        /* شريط التنقل الرئيسي */
-        .main-nav {
-            display: flex; gap: 6px; margin-bottom: 20px;
-            background: rgba(15, 23, 42, 0.9); padding: 6px;
-            border-radius: 14px; border: 1px solid var(--border);
-        }
-        .nav-btn {
-            flex: 1; background: transparent; border: none; color: var(--text-muted);
-            padding: 10px 4px; border-radius: 10px; font-size: 0.82rem; font-weight: 700;
-            cursor: pointer; transition: all 0.3s; text-align: center;
-        }
-        .nav-btn.active { background: var(--secondary); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4); }
-
-        .app-section { display: none; }
-        .app-section.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
         .card {
             background: var(--surface); backdrop-filter: blur(12px);
@@ -83,53 +65,25 @@
             padding: 13px; border-radius: 12px; font-weight: 700; font-size: 0.9rem;
             border: none; cursor: pointer; width: 100%; margin-top: 10px;
             box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3); transition: all 0.2s;
+            display: flex; justify-content: center; align-items: center; gap: 8px;
         }
-        .btn-purple:hover { transform: translateY(-1px); opacity: 0.95; }
+        .btn-purple:hover { opacity: 0.95; transform: translateY(-1px); }
 
-        /* حاوية نتائج العرض */
         .result-box {
             display: none; background: rgba(15, 23, 42, 0.95); border: 1px solid var(--purple);
-            border-radius: 18px; padding: 22px; margin-top: 20px; line-height: 1.6;
+            border-radius: 18px; padding: 22px; margin-top: 20px; line-height: 1.7;
         }
         .result-box.active { display: block; animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
         .badge { font-size: 0.75rem; background: rgba(139, 92, 246, 0.2); color: #c084fc; padding: 3px 10px; border-radius: 8px; border: 1px solid rgba(139, 92, 246, 0.4); display: inline-block; margin-bottom: 10px; }
         
-        .lesson-section { margin-bottom: 22px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
-        .lesson-section:last-child { border-bottom: none; }
-        .lesson-subtitle { font-size: 0.98rem; color: #60a5fa; margin-bottom: 10px; font-weight: bold; }
-
-        /* خريطة ذهنية بصرياً */
-        .mindmap-box {
-            background: rgba(15, 23, 42, 0.95); border: 2px solid var(--purple);
-            border-radius: 18px; padding: 20px; margin-top: 20px; display: none; text-align: center;
+        .loader {
+            display: none; border: 3px solid rgba(255,255,255,0.1); border-radius: 50%;
+            border-top: 3px solid var(--purple); width: 20px; height: 20px;
+            animation: spin 0.8s linear infinite;
         }
-        .mindmap-box.active { display: block; animation: fadeIn 0.4s ease; }
-        .mm-center-node {
-            background: linear-gradient(135deg, var(--secondary), var(--purple)); color: white;
-            padding: 12px 20px; border-radius: 25px; font-weight: 900; font-size: 1rem;
-            display: inline-block; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-        }
-        .mm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: right; }
-        .mm-branch {
-            background: rgba(30, 41, 59, 0.8); border: 1px solid var(--border);
-            padding: 12px; border-radius: 12px; font-size: 0.82rem; color: #e2e8f0;
-        }
-        .mm-branch h5 { color: #60a5fa; margin-bottom: 4px; font-size: 0.85rem; }
-
-        /* خيارات التمارين التفاعلية */
-        .quiz-card { background: rgba(255, 255, 255, 0.02); padding: 14px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; }
-        .quiz-option {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
-            padding: 10px 14px; border-radius: 10px; margin-top: 8px; font-size: 0.84rem;
-            cursor: pointer; transition: all 0.2s; text-align: right;
-        }
-        .quiz-option:hover { background: rgba(37, 99, 235, 0.25); border-color: var(--secondary); }
-
-        .btn-toggle-sol {
-            background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);
-            padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; cursor: pointer; margin-top: 8px;
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         footer { margin-top: 20px; font-size: 0.75rem; color: var(--text-muted); text-align: center; padding-bottom: 20px; }
     </style>
@@ -139,279 +93,170 @@
     <div class="container">
         <header>
             <h1>أكاديمية أمين</h1>
-            <p class="subtitle">المنصة التعليمية الموسعة - بنك الدروس والتمارين التفاعلية الشامل</p>
+            <p class="subtitle">المنصة التعليمية التفاعلية الذكية للمناهج الجزائرية (Gemini API)</p>
         </header>
 
-        <!-- شريط التبديل الرئيسي -->
-        <div class="main-nav">
-            <button class="nav-btn active" onclick="switchAppSection('lessons', this)">📚 بنك الدروس الشامل</button>
-            <button class="nav-btn" onclick="switchAppSection('quizzes', this)">🎯 التمارين التفاعلية</button>
-            <button class="nav-btn" onclick="switchAppSection('mindmap', this)">🗺️ الخرائط الذهنية</button>
-        </div>
-
-        <!-- 1. قسم بنك الدروس الشامل -->
-        <div id="lessonsSection" class="app-section active">
-            <div class="card">
-                <div class="section-title">
-                    <span>📖 استعراض قاعدة الدروس المدمجة</span>
-                    <span style="font-size: 0.7rem; background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 2px 8px; border-radius: 6px;">قاعدة معطيات موسعة</span>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">1. الطور التعليمي</label>
-                    <select id="phaseSelect" class="form-select" onchange="updateLevels()">
-                        <option value="">-- اختر الطور الدراسي --</option>
-                        <option value="primary">التعليم الابتدائي</option>
-                        <option value="middle">التعليم المتوسط (CEM)</option>
-                        <option value="secondary">التعليم الثانوي (BAC)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">2. المستوى / السنة الدراسية</label>
-                    <select id="levelSelect" class="form-select" onchange="updateSubjects()" disabled>
-                        <option value="">-- اختر الطور أولاً --</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">3. المادة التعليمية</label>
-                    <select id="subjectSelect" class="form-select" onchange="updateLessonsList()" disabled>
-                        <option value="">-- اختر المستوى أولاً --</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">4. اختر الدرس المطلق من قاعدة البيانات</label>
-                    <select id="lessonSelect" class="form-select" disabled>
-                        <option value="">-- اختر المادة أولاً --</option>
-                    </select>
-                </div>
-
-                <button class="btn-purple" onclick="loadSelectedLesson()">🚀 عرض الدرس والشرح المنهجي التفصيلي</button>
+        <!-- إعداد مفتاح API -->
+        <div class="card" style="border-color: rgba(217, 119, 6, 0.5);">
+            <div class="section-title">
+                <span>🔑 إعداد مفتاح API المجاني (Google Gemini)</span>
             </div>
-
-            <!-- شاشة عرض الدرس الجاهز -->
-            <div id="lessonOutput" class="result-box">
-                <span id="resBadge" class="badge"></span>
-                <h2 id="resTitle" style="color: #60a5fa; font-size: 1.2rem; margin-bottom: 12px;"></h2>
-                <div class="lesson-section">
-                    <div class="lesson-subtitle">📘 المحاور والشرح التفصيلي:</div>
-                    <div id="resDetailedBody" style="font-size: 0.86rem; color: #e2e8f0; line-height: 1.7;"></div>
-                </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <input type="password" id="apiKeyInput" class="form-input" placeholder="ألصق مفتاح Gemini API المجاني هنا...">
+                <span style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-top: 4px;">* يُحفظ المفتاح محلياً في متصفحك مجاناً وأمان دون تخزين خارجي.</span>
             </div>
         </div>
 
-        <!-- 2. قسم التمارين التفاعلية المتنوعة -->
-        <div id="quizzesSection" class="app-section">
-            <div class="card">
-                <div class="section-title">
-                    <span>🎯 بنك التمارين التفاعلية المباشرة</span>
-                    <span style="font-size: 0.7rem; background: rgba(236, 72, 153, 0.2); color: #f472b6; padding: 2px 8px; border-radius: 6px;">تطبيق وحلول معللة</span>
-                </div>
-
-                <div id="quizContainer">
-                    <div class="quiz-card">
-                        <strong style="color: #60a5fa; font-size: 0.9rem;">تمرين 1: حساب القاسم المشترك الأكبر PGCD (سنة 4 متوسط)</strong>
-                        <p style="font-size: 0.83rem; color: #e2e8f0; margin-top: 6px;">احسب PGCD(220, 140) باستخدام خوارزمية الفروق المتتالية أو الإقليذية.</p>
-                        <div class="quiz-option" onclick="alert('✅ صحيح! PGCD(220, 140) = 20. ممتاز!')">أ) 20 (إجابة صحيحة)</div>
-                        <div class="quiz-option" onclick="alert('❌ خاطئ! راجع خوارزمية القسمات المتتالية.')">ب) 10</div>
-                        <div class="quiz-option" onclick="alert('❌ خاطئ! 40 ليس القاسم المشترك الأكبر.')">ج) 40</div>
-                    </div>
-
-                    <div class="quiz-card">
-                        <strong style="color: #34d399; font-size: 0.9rem;">تمرين 2: النواتج والتفاعلات الكيميائية (سنة 3 ثانوي علوم)</strong>
-                        <p style="font-size: 0.83rem; color: #e2e8f0; margin-top: 6px;">في التفاعل النووي للأسترة، ما هي وظيفة الحمض الكبريتي المركز كمنشط؟</p>
-                        <button class="btn-toggle-sol" onclick="toggleQuizSol('sol2')">👁️ كشف الإجابة والتعليل العلمي</button>
-                        <div id="sol2" style="display:none; margin-top:8px; font-size:0.82rem; color:#34d399; background:rgba(16,185,129,0.08); padding:10px; border-radius:8px;">
-                            ✔ الإجابة: يعمل حمض الكبريتيك المركز كحفاز (Catalyst) لتسريع التفاعل ودون أن يظهر في المعادلة النهائية.
-                        </div>
-                    </div>
-                </div>
+        <!-- محرك الطلب والتوليد الحي -->
+        <div class="card">
+            <div class="section-title">
+                <span>📚 مولّد الدروس والخرائط والتمارين التفاعلية</span>
+                <span style="font-size: 0.7rem; background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 2px 8px; border-radius: 6px;">توليد حي حقيقي</span>
             </div>
+
+            <div class="form-group">
+                <label class="form-label">1. الطور التعليمي</label>
+                <select id="phaseSelect" class="form-select" onchange="updateLevels()">
+                    <option value="">-- اختر الطور الدراسي --</option>
+                    <option value="primary">التعليم الابتدائي</option>
+                    <option value="middle">التعليم المتوسط (CEM)</option>
+                    <option value="secondary">التعليم الثانوي (BAC)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">2. المستوى / السنة الدراسية</label>
+                <select id="levelSelect" class="form-select" disabled>
+                    <option value="">-- اختر الطور أولاً --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">3. المادة التعليمية</label>
+                <input type="text" id="subjectInput" class="form-input" placeholder="مثال: رياضيات، علوم الطبيعة والحياة، فيزياء، أدب عربي...">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">4. عنوان الدرس المطلوب بالضبط</label>
+                <input type="text" id="lessonTitleInput" class="form-input" placeholder="مثال: القاسم المشترك الأكبر PGCD، الخلية، الدوال الأسية...">
+            </div>
+
+            <button class="btn-purple" onclick="generateLiveLesson()">
+                <div id="loader" class="loader"></div>
+                <span id="btnText">✨ توليد الدرس والشرح والخريطة والتمارين حياً</span>
+            </button>
         </div>
 
-        <!-- 3. قسم الخرائط الذهنية -->
-        <div id="mindmapSection" class="app-section">
-            <div class="card">
-                <div class="section-title">
-                    <span>🗺️ الخرائط الذهنية الجاهزة للمواد</span>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">أدخل اسم المفهوم لتوليد خريطة ذهنية بصرياً</label>
-                    <input type="text" id="mmInputTitle" class="form-input" placeholder="مثال: الجملة الاسمية، القوة والحركة، الدوال الاسية...">
-                </div>
-                <button class="btn-purple" onclick="generateMindMap()">🧠 رسم وتوليد الخريطة الذهنية</button>
+        <!-- شاشة عرض المحتوى المتولد حياً -->
+        <div id="outputContainer" class="result-box">
+            <span id="resBadge" class="badge"></span>
+            <h2 id="resTitle" style="color: #60a5fa; font-size: 1.25rem; margin-bottom: 15px;"></h2>
 
-                <div id="mmResultBox" class="mindmap-box">
-                    <div id="mmCenter" class="mm-center-node">عنوان المفهوم</div>
-                    <div class="mm-grid">
-                        <div class="mm-branch">
-                            <h5>📌 المبدأ والتعريف</h5>
-                            <p id="mmBranch1">الأساس النظري والمفاهيم الجوهرية.</p>
-                        </div>
-                        <div class="mm-branch">
-                            <h5>📐 القواعد والقوانين</h5>
-                            <p id="mmBranch2">العلاقات الرياضية والعلمية المقررة.</p>
-                        </div>
-                        <div class="mm-branch">
-                            <h5>📝 التطبيقات العملية</h5>
-                            <p id="mmBranch3">توظيف المعطيات في التمارين والوضعيات.</p>
-                        </div>
-                        <div class="mm-branch">
-                            <h5>⚠️ التنبيهات والأخطاء</h5>
-                            <p id="mmBranch4">الأخطاء المنهجية الشائعة الواجب تجنبها.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="resContent" style="font-size: 0.88rem; color: #e2e8f0; line-height: 1.8;"></div>
         </div>
 
         <footer>
-            <p>&copy; 2026 - أكاديمية أمين | البنك الموسع للدروس والتمارين التفاعلية</p>
+            <p>&copy; 2026 - أكاديمية أمين | المحرك الذكي للمناهج الجزائرية</p>
         </footer>
     </div>
 
     <script>
-        function switchAppSection(sectionName, btnElement) {
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.app-section').forEach(s => s.classList.remove('active'));
-
-            btnElement.classList.add('active');
-            document.getElementById(sectionName + 'Section').classList.add('active');
-        }
-
-        // قاعدة البيانات الموسعة المدمجة بالدروس الفعلية
-        const database = {
-            primary: {
-                "السنة الخامسة ابتدائي": {
-                    "الرياضيات": [
-                        { title: "الأعداد الكسرية والعشرية", content: "<strong>1. التعريف:</strong> العدد العشري ينقسم إلى جزء صحيح وجزء عشري يفصل بينهما الفاصلة.<br><strong>2. التطبيق:</strong> للجمع أو الطرح، يجب محاذاة الفواصل تحت بعضها بدقة." },
-                        { title: "التناسبية والنسب المئوية", content: "<strong>1. المبدأ:</strong> حساب معامل التناسبية بقسمة سطر على سطر.<br><strong>2. النسب المئوية:</strong> لحساب P% من عدد، نضرب العدد في P ونقسم على 100." }
-                    ],
-                    "اللغة العربية": [
-                        { title: "قواعد الإعراب والجملة المركبة", content: "<strong>1. المبتدأ والخبر:</strong> المبتدأ مرفوع والخبر يتمم معنى الجملة.<br><strong>2. إن وأخواتها:</strong> تنصب المبتدأ ويسمى اسمها وترفع الخبر ويسمى خبرها." }
-                    ]
-                }
-            },
-            middle: {
-                "السنة الرابعة متوسط (BEM)": {
-                    "الرياضيات": [
-                        { title: "القاسم المشترك الأكبر (PGCD)", content: "<strong>1. الخوارزميات:</strong> 1) خوارزمية الفروق المتتالية، 2) خوارزمية القسمات المتتالية (إقليدس).<br><strong>2. الخاصية:</strong> الكسر A/B يكون غير قابل للاختزال إذا قسمنا كلا من البسط والمقام على PGCD(A,B)." },
-                        { title: "الحساب على الجذور التربيعية", content: "<strong>1. القاعدة:</strong> √(a × b) = √a × √b حيث a و b أعداد موجبة.<br><strong>2. تبسيط الجذر:</strong> كتابة الشكل √A على شكل a√b." }
-                    ],
-                    "الفيزياء والتكنولوجيا": [
-                        { title: "الشاردة والمحلول الشاردي", content: "<strong>1. المحلول الشاردي:</strong> ناقل للتيار الكهربائي لاحتوائه على شوارد حرة الحركة.<br><strong>2. الشاردة البسيطة:</strong> ذرة فقدت أو اكتسبت إلكتروناً أو أكثر." }
-                    ]
-                }
-            },
-            secondary: {
-                "السنة 3 ثانوي - علوم تجريبية (BAC)": {
-                    "علوم الطبيعة والحياة": [
-                        { title: "تركيب البروتين والاتصال العصبي", content: "<strong>1. الاستنساخ:</strong> يتم في النواة بتركيب أرقام ARNm انطلاقاً من الـ ADN بواسطة أنزيم ARN بوليميراز.<br><strong>2. الترجمة:</strong> تتم في الهيولى بواسطة الريبوزومات." },
-                        { title: "المناعة والاستجابة المناعية", content: "<strong>1. الذات واللاذات:</strong> تحديد الجزيئات المحددة للذات (معقد التوافق النسيجي CMH).<br><strong>2. الاستجابة الخلطية والخلوية:</strong> تديم اللمفاويات LB و LT8." }
-                    ],
-                    "الرياضيات": [
-                        { title: "الدوال الأسية واللوغاريتمية", content: "<strong>1. الدالة الأسية exp(x):</strong> موجبة تماماً على R ومعرف ومشتقها هو نفسها.<br><strong>2. الدالة اللوغاريتمية ln(x):</strong> دالة عكسية للأسية، معرفة على المجال ]0, +∞[." }
-                    ]
-                }
+        // حفظ واسترجاع المفتاح من الذاكرة المحلية
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedKey = localStorage.getItem('gemini_api_key');
+            if (savedKey) {
+                document.getElementById('apiKeyInput').value = savedKey;
             }
+        });
+
+        const levelsData = {
+            primary: ["السنة الأولى ابتدائي", "السنة الثانية ابتدائي", "السنة الثالثة ابتدائي", "السنة الرابعة ابتدائي", "السنة الخامسة ابتدائي"],
+            middle: ["السنة الأولى متوسط", "السنة الثانية متوسط", "السنة الثالثة متوسط", "السنة الرابعة متوسط (BEM)"],
+            secondary: ["السنة 1 ثانوي - جذع مشترك علوم", "السنة 1 ثانوي - جذع مشترك آداب", "السنة 2 ثانوي - شعب علمية/أدبية", "السنة 3 ثانوي - علوم تجريبية (BAC)", "السنة 3 ثانوي - رياضيات وتقني (BAC)", "السنة 3 ثانوي - آداب وفلسفة (BAC)"]
         };
 
         function updateLevels() {
-            let phase = document.getElementById('phaseSelect').value;
-            let levelSelect = document.getElementById('levelSelect');
-            let subjectSelect = document.getElementById('subjectSelect');
-            let lessonSelect = document.getElementById('lessonSelect');
-
+            const phase = document.getElementById('phaseSelect').value;
+            const levelSelect = document.getElementById('levelSelect');
             levelSelect.innerHTML = '<option value="">-- اختر المستوى --</option>';
-            subjectSelect.innerHTML = '<option value="">-- اختر المستوى أولاً --</option>';
-            lessonSelect.innerHTML = '<option value="">-- اختر المادة أولاً --</option>';
-            subjectSelect.disabled = true; lessonSelect.disabled = true;
 
-            if (phase && database[phase]) {
+            if (phase && levelsData[phase]) {
                 levelSelect.disabled = false;
-                Object.keys(database[phase]).forEach(lvl => {
-                    let opt = document.createElement('option');
+                levelsData[phase].forEach(lvl => {
+                    const opt = document.createElement('option');
                     opt.value = lvl; opt.innerText = lvl;
                     levelSelect.appendChild(opt);
                 });
-            } else { levelSelect.disabled = true; }
+            } else {
+                levelSelect.disabled = true;
+            }
         }
 
-        function updateSubjects() {
-            let phase = document.getElementById('phaseSelect').value;
-            let level = document.getElementById('levelSelect').value;
-            let subjectSelect = document.getElementById('subjectSelect');
-            let lessonSelect = document.getElementById('lessonSelect');
+        async function generateLiveLesson() {
+            const apiKey = document.getElementById('apiKeyInput').value.trim();
+            const level = document.getElementById('levelSelect').value;
+            const subject = document.getElementById('subjectInput').value.trim();
+            const title = document.getElementById('lessonTitleInput').value.trim();
 
-            subjectSelect.innerHTML = '<option value="">-- اختر المادة --</option>';
-            lessonSelect.innerHTML = '<option value="">-- اختر المادة أولاً --</option>';
-            lessonSelect.disabled = true;
-
-            if (phase && level && database[phase][level]) {
-                subjectSelect.disabled = false;
-                Object.keys(database[phase][level]).forEach(sub => {
-                    let opt = document.createElement('option');
-                    opt.value = sub; opt.innerText = sub;
-                    subjectSelect.appendChild(opt);
-                });
-            } else { subjectSelect.disabled = true; }
-        }
-
-        function updateLessonsList() {
-            let phase = document.getElementById('phaseSelect').value;
-            let level = document.getElementById('levelSelect').value;
-            let subject = document.getElementById('subjectSelect').value;
-            let lessonSelect = document.getElementById('lessonSelect');
-
-            lessonSelect.innerHTML = '<option value="">-- اختر الدرس --</option>';
-
-            if (phase && level && subject && database[phase][level][subject]) {
-                lessonSelect.disabled = false;
-                database[phase][level][subject].forEach((item, index) => {
-                    let opt = document.createElement('option');
-                    opt.value = index; opt.innerText = item.title;
-                    lessonSelect.appendChild(opt);
-                });
-            } else { lessonSelect.disabled = true; }
-        }
-
-        function loadSelectedLesson() {
-            let phase = document.getElementById('phaseSelect').value;
-            let level = document.getElementById('levelSelect').value;
-            let subject = document.getElementById('subjectSelect').value;
-            let lessonIdx = document.getElementById('lessonSelect').value;
-
-            if (lessonIdx === "") {
-                alert("يرجى اختيار الدرس المراد عرضه أولاً!");
+            if (!apiKey) {
+                alert("يرجى إدخال مفتاح Gemini API المجاني أولاً!");
+                return;
+            }
+            if (!level || !subject || !title) {
+                alert("يرجى إكمال تحديد المستوى، المادة، وعنوان الدرس!");
                 return;
             }
 
-            let lessonObj = database[phase][level][subject][lessonIdx];
-            document.getElementById('resBadge').innerText = `${level} | مادة: ${subject}`;
-            document.getElementById('resTitle').innerText = `📖 ${lessonObj.title}`;
-            document.getElementById('resDetailedBody').innerHTML = lessonObj.content;
+            // حفظ المفتاح للاستخدام المستقبلي
+            localStorage.setItem('gemini_api_key', apiKey);
 
-            document.getElementById('lessonOutput').classList.add('active');
-        }
+            // تشغيل العداد والمؤشر
+            const loader = document.getElementById('loader');
+            const btnText = document.getElementById('btnText');
+            loader.style.display = 'block';
+            btnText.innerText = 'جاري التوليد الحي بالذكاء الاصطناعي...';
 
-        function toggleQuizSol(solId) {
-            let sol = document.getElementById(solId);
-            sol.style.display = (sol.style.display === 'none' || sol.style.display === '') ? 'block' : 'none';
-        }
+            const prompt = `أنت أستاذ ومستشار تربوي خبير في المناهج التعليمية الجزائرية لوزارة التربية الوطنية.
+قم بتوليد درس علمي حقيقي ودقيق 100% بدون إعطاء إجابات عامة أو قوالب ثنائية.
+المستوى: ${level}
+المادة: ${subject}
+عنوان الدرس: ${title}
 
-        function generateMindMap() {
-            let topic = document.getElementById('mmInputTitle').value.trim();
-            if(!topic) { alert("أدخل اسم المفهوم لإنشاء الخريطة!"); return; }
+قم بتنسيق الإجابة بلغة HTML بسيطة (باستخدام <h3>, <strong>, <p>, <ul>, <li>) وتحتوي على الأقسام التالية حصراً:
+1. الشرح العلمي التفصيلي والمفاهيم الجوهرية للدرس المعتمدة في المنهج الجزائري.
+2. الخريطة الذهنية والمخطط المفاهيمي (نقاط ومحاور متفرعة).
+3. بنك تمارين تفاعلية حقيقية (تمارين محلولة خطوة بخطوة مع أسئلة اختيار من متعدد وتفسيرات علمية دقيقة).`;
 
-            document.getElementById('mmCenter').innerText = `🌟 ${topic}`;
-            document.getElementById('mmBranch1').innerText = `المفاهيم الشاملة والأساسيات الخاصة بـ (${topic}).`;
-            document.getElementById('mmBranch2').innerText = `القواعد، العلاقات الرياضية/العلمية المقررة.`;
-            document.getElementById('mmBranch3').innerText = `التطبيق على التمارين والوضعيات المنهجية.`;
-            document.getElementById('mmBranch4').innerText = `التنبيهات لتجنب الوقوع في الأخطاء الشائعة.`;
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
 
-            document.getElementById('mmResultBox').classList.add('active');
+                const data = await response.json();
+
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    let generatedHtml = data.candidates[0].content.parts[0].text;
+                    generatedHtml = generatedHtml.replace(/```html/g, '').replace(/```/g, '');
+
+                    document.getElementById('resBadge').innerText = `${level} | مادة: ${subject}`;
+                    document.getElementById('resTitle').innerText = `📖 ${title}`;
+                    document.getElementById('resContent').innerHTML = generatedHtml;
+
+                    document.getElementById('outputContainer').classList.add('active');
+                    document.getElementById('outputContainer').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    alert("حدث خطأ في استجابة المحرك. يرجى التأكد من صحة المفتاح.");
+                }
+            } catch (err) {
+                alert("عذراً، فشل الاتصال بالمحرك الذكي. يرجى التثبت من الاتصال بالإنترنت ومفتاح API.");
+            } finally {
+                loader.style.display = 'none';
+                btnText.innerText = '✨ توليد الدرس والشرح والخريطة والتمارين حياً';
+            }
         }
     </script>
 </body>
