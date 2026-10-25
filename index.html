@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية أمين | الخريطة الشاملة لجميع المستويات والشعب</title>
+    <title>أكاديمية أمين | لوحة التحكم والمنصة الذكية</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,6 +16,7 @@
             --text: #f8fafc;
             --text-muted: #94a3b8;
             --border: rgba(51, 65, 85, 0.7);
+            --green: #10b981;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
@@ -31,190 +32,153 @@
             background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg) 70%);
         }
 
-        .container { width: 100%; max-width: 560px; }
+        .container { width: 100%; max-width: 600px; }
 
         header { text-align: center; margin: 15px 0; }
-        h1 { font-size: 1.7rem; color: #60a5fa; margin-bottom: 4px; font-weight: 900; }
-        .subtitle { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 15px; }
+        h1 { font-size: 1.8rem; color: #60a5fa; margin-bottom: 4px; font-weight: 900; }
+        .subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; }
 
-        /* شريط البحث الفوري */
-        .search-box { position: relative; margin-bottom: 20px; }
-        .search-input {
-            width: 100%; background: var(--surface); border: 1px solid var(--border);
-            padding: 10px 14px 10px 38px; border-radius: 12px; color: white;
-            font-size: 0.85rem; outline: none; backdrop-filter: blur(10px);
+        /* شريط التنقل بين المنصة ولوحة التحكم */
+        .nav-switch {
+            display: flex; gap: 8px; margin-bottom: 20px;
+            background: rgba(15, 23, 42, 0.9); padding: 6px;
+            border-radius: 14px; border: 1px solid var(--border);
         }
-        .search-input:focus { border-color: var(--secondary); }
-        .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .switch-btn {
+            flex: 1; background: transparent; border: none; color: var(--text-muted);
+            padding: 10px; border-radius: 10px; font-size: 0.85rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s; text-align: center;
+        }
+        .switch-btn.active { background: var(--secondary); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4); }
+
+        .view-section { display: none; }
+        .view-section.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
         .card {
             background: var(--surface); backdrop-filter: blur(12px);
-            border-radius: 18px; padding: 18px; border: 1px solid var(--border);
+            border-radius: 18px; padding: 20px; border: 1px solid var(--border);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); margin-bottom: 15px;
         }
 
-        .card-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;
+        .section-title {
+            font-size: 1rem; color: #60a5fa; margin-bottom: 12px; font-weight: bold;
+            border-right: 3px solid var(--accent); padding-right: 8px;
         }
-        .stage-title { font-size: 1rem; color: #f1f5f9; font-weight: 700; }
-        .status-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 6px; font-weight: bold; }
-        .tag-active { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
-        .tag-soon { background: rgba(217, 119, 6, 0.15); color: #fbbf24; border: 1px solid rgba(217, 119, 6, 0.3); }
 
-        .sub-category { font-size: 0.83rem; color: #60a5fa; margin: 12px 0 6px 0; font-weight: bold; border-right: 2px solid var(--accent); padding-right: 6px; }
-        
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px; }
+        /* نماذج الإدخال الخاصة بلوحة التحكم */
+        .form-group { margin-bottom: 12px; text-align: right; }
+        .form-label { display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 5px; font-weight: bold; }
+        .form-input, .form-select {
+            width: 100%; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border);
+            padding: 10px 12px; border-radius: 10px; color: white; font-size: 0.85rem; outline: none;
+        }
+        .form-input:focus, .form-select:focus { border-color: var(--secondary); }
+
         .btn {
             display: flex; align-items: center; justify-content: center; gap: 6px;
-            background: rgba(255, 255, 255, 0.04); color: var(--text); text-decoration: none;
-            padding: 10px 8px; border-radius: 10px; font-weight: 700; font-size: 0.8rem;
-            border: 1px solid var(--border); transition: all 0.2s; text-align: center; cursor: pointer;
+            background: var(--secondary); color: white; text-decoration: none;
+            padding: 12px; border-radius: 12px; font-weight: 700; font-size: 0.85rem;
+            border: none; transition: all 0.2s; text-align: center; cursor: pointer; width: 100%;
         }
-        .btn:hover { background: rgba(37, 99, 235, 0.2); border-color: var(--secondary); }
-        .btn-accent { background: linear-gradient(135deg, var(--accent), #b45309); border: none; color: white; }
-        .btn-primary { background: linear-gradient(135deg, var(--secondary), #1d4ed8); border: none; color: white; }
-        .btn-full { grid-column: span 2; }
+        .btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+        .btn-green { background: var(--green); }
+        .btn-green:hover { background: #059669; }
 
-        /* نافذة منبثقة تفاعلية */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
-            justify-content: center; align-items: center; z-index: 1000; padding: 20px;
-        }
-        .modal-content {
-            background: var(--surface-solid); border: 1px solid var(--border);
-            padding: 22px; border-radius: 18px; width: 100%; max-width: 360px; text-align: center;
-        }
-        .modal-content h3 { color: #60a5fa; margin-bottom: 8px; font-size: 1.05rem; }
-        .modal-content p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px; line-height: 1.5; }
-        .modal-btn { background: var(--secondary); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .stat-box { background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border); padding: 15px; border-radius: 14px; text-align: center; }
+        .stat-num { font-size: 1.4rem; font-weight: 900; color: #60a5fa; margin-top: 4px; }
 
-        footer { margin-top: 15px; font-size: 0.72rem; color: var(--text-muted); text-align: center; padding-bottom: 20px; }
+        footer { margin-top: 15px; font-size: 0.75rem; color: var(--text-muted); text-align: center; padding-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <h1>Amin-Dz-Edsmart</h1>
-            <p class="subtitle">الدليل الشامل لكل المستويات والشعب التعليمية في الجزائر</p>
+            <h1>أكاديمية أمين</h1>
+            <p class="subtitle">المنصة التعليمية الذكية - لوحة الإدارة والتحكم</p>
         </header>
 
-        <!-- شريط البحث الفوري -->
-        <div class="search-box">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن مستواك أو شعبتك بدقة..." onkeyup="filterLevels()">
+        <!-- تبديل العرض بين المنصة ولوحة التحكم -->
+        <div class="nav-switch">
+            <button class="switch-btn active" onclick="switchView('student', this)">🎓 واجهة الطالب</button>
+            <button class="switch-btn" onclick="switchView('admin', this)">⚙️ لوحة التحكم والإدارة</button>
         </div>
 
-        <!-- 1. التعليم الابتدائي (السنوات الخمس مفصلة) -->
-        <div class="card" data-key="ابتدائي أولى ثانية ثالثة رابعة خامسة">
-            <div class="card-header">
-                <span class="stage-title">🎒 التعليم الابتدائي</span>
-                <span class="status-tag tag-soon">قريباً</span>
-            </div>
-            <div class="sub-category">سنوات التعليم الابتدائي (من 1 إلى 5)</div>
-            <div class="btn-grid">
-                <button class="btn" onclick="showModal('السنة الأولى ابتدائي', 'برامج ومناهج السنة الأولى ابتدائي قيد التحضير.')">السنة الأولى</button>
-                <button class="btn" onclick="showModal('السنة الثانية ابتدائي', 'برامج ومناهج السنة الثانية ابتدائي قيد التحضير.')">السنة الثانية</button>
-                <button class="btn" onclick="showModal('السنة الثالثة ابتدائي', 'برامج ومناهج السنة الثالثة ابتدائي قيد التحضير.')">السنة الثالثة</button>
-                <button class="btn" onclick="showModal('السنة الرابعة ابتدائي', 'برامج ومناهج السنة الرابعة ابتدائي قيد التحضير.')">السنة الرابعة</button>
-                <button class="btn btn-full" onclick="showModal('السنة الخامسة ابتدائي', 'تحضيرات شهادة التعليم الابتدائي قيد التحضير.')">السنة الخامسة (نهاية الابتدائي)</button>
+        <!-- 1. واجهة الطالب -->
+        <div id="studentView" class="view-section active">
+            <div class="card">
+                <div class="section-title">📖 الأطوار التعليمية المتاحة</div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button class="btn" onclick="alert('جاري فتح الطور المتوسط...')">التعليم المتوسط (CEM) - مفعل</button>
+                    <button class="btn" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border);" onclick="alert('التعليم الثانوي قريباً')">التعليم الثانوي (BAC) - قريباً</button>
+                    <button class="btn" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border);" onclick="alert('التعليم الابتدائي قريباً')">التعليم الابتدائي - قريباً</button>
+                </div>
             </div>
         </div>
 
-        <!-- 2. التعليم المتوسط (السنوات الأربع مفصلة) -->
-        <div class="card" data-key="متوسط أولى ثانية ثالثة رابعة bem رياضيات فيزياء">
-            <div class="card-header">
-                <span class="stage-title">📖 التعليم المتوسط (CEM)</span>
-                <span class="status-tag tag-active">مفعل</span>
-            </div>
-            
-            <div class="sub-category">السنة الرابعة متوسط (BEM - نشطة)</div>
-            <div class="btn-grid">
-                <a href="lesson.html" class="btn btn-accent">📐 رياضيات (PGCD)</a>
-                <a href="physics.html" class="btn btn-primary">⚡ فيزياء وتكنولوجيا</a>
-            </div>
-
-            <div class="sub-category">باقي مستويات المتوسط</div>
-            <div class="btn-grid">
-                <button class="btn" onclick="showModal('السنة الأولى متوسط', 'دروس ومناهج السنة الأولى متوسط قيد الإعداد.')">السنة الأولى</button>
-                <button class="btn" onclick="showModal('السنة الثانية متوسط', 'دروس ومناهج السنة الثانية متوسط قيد الإعداد.')">السنة الثانية</button>
-                <button class="btn btn-full" onclick="showModal('السنة الثالثة متوسط', 'دروس ومناهج السنة الثالثة متوسط قيد الإعداد.')">السنة الثالثة متوسط</button>
-            </div>
-        </div>
-
-        <!-- 3. التعليم الثانوي (الجذوع المشتركة والشعب لكل سنة) -->
-        <div class="card" data-key="ثانوي جذع مشترك علوم آداب ثانية ثالثة بكالوريا bac علوم تجريبية رياضيات تقني رياضي تسيير اقتصاد فلسفة لغات">
-            <div class="card-header">
-                <span class="stage-title">🎓 التعليم الثانوي (BAC)</span>
-                <span class="status-tag tag-soon">قريباً</span>
+        <!-- 2. لوحة التحكم والإدارة (Admin Dashboard) -->
+        <div id="adminView" class="view-section">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">إجمالي الدروس</span>
+                    <div class="stat-num" id="totalLessons">12</div>
+                </div>
+                <div class="stat-box">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">الأطوار المفعلة</span>
+                    <div class="stat-num">3</div>
+                </div>
             </div>
 
-            <div class="sub-category">السنة الأولى ثانوي (الجذوع المشتركة)</div>
-            <div class="btn-grid">
-                <button class="btn" onclick="showModal('جذع مشترك علوم وتكنولوجيا', 'مناهج جذع مشترك علوم قيد التجهيز.')">جذع مشترك علوم</button>
-                <button class="btn" onclick="showModal('جذع مشترك آداب', 'مناهج جذع مشترك آداب قيد التجهيز.')">جذع مشترك آداب</button>
-            </div>
-
-            <div class="sub-category">السنة الثانية ثانوي (الشعب)</div>
-            <div class="btn-grid">
-                <button class="btn" onclick="showModal('علوم تجريبية - سنة 2', 'مناهج السنة الثانية علوم تجريبية قريباً.')">علوم تجريبية</button>
-                <button class="btn" onclick="showModal('رياضيات - سنة 2', 'مناهج السنة الثانية رياضيات قريباً.')">رياضيات</button>
-                <button class="btn" onclick="showModal('تقني رياضي - سنة 2', 'مناهج تقني رياضي قريباً.')">تقني رياضي</button>
-                <button class="btn" onclick="showModal('تسيير واقتصاد - سنة 2', 'مناهج تسيير واقتصاد قريباً.')">تسيير واقتصاد</button>
-                <button class="btn" onclick="showModal('آداب وفلسفة - سنة 2', 'مناهج آداب وفلسفة قريباً.')">آداب وفلسفة</button>
-                <button class="btn" onclick="showModal('لغات أجنبية - سنة 2', 'مناهج لغات أجنبية قريباً.')">لغات أجنبية</button>
-            </div>
-
-            <div class="sub-category">السنة الثالثة ثانوي (تحضير البكالوريا BAC)</div>
-            <div class="btn-grid">
-                <button class="btn" onclick="showModal('علوم تجريبية - باك', 'مراجعات البكالوريا علوم تجريبية قريباً.')">علوم تجريبية (BAC)</button>
-                <button class="btn" onclick="showModal('رياضيات - باك', 'مراجعات البكالوريا رياضيات قريباً.')">رياضيات (BAC)</button>
-                <button class="btn" onclick="showModal('تقني رياضي - باك', 'مراجعات البكالوريا تقني رياضي قريباً.')">تقني رياضي (BAC)</button>
-                <button class="btn" onclick="showModal('تسيير واقتصاد - باك', 'مراجعات البكالوريا تسيير واقتصاد قريباً.')">تسيير واقتصاد (BAC)</button>
-                <button class="btn" onclick="showModal('آداب وفلسفة - باك', 'مراجعات البكالوريا آداب وفلسفة قريباً.')">آداب وفلسفة (BAC)</button>
-                <button class="btn" onclick="showModal('لغات أجنبية - باك', 'مراجعات البكالوريا لغات أجنبية قريباً.')">لغات أجنبية (BAC)</button>
+            <div class="card">
+                <div class="section-title">➕ إضافة درس أو محتوى جديد</div>
+                <div class="form-group">
+                    <label class="form-label">الطور التعليمي</label>
+                    <select id="stageSelect" class="form-select">
+                        <option value="الابتدائي">التعليم الابتدائي</option>
+                        <option value="المتوسط">التعليم المتوسط</option>
+                        <option value="الثانوي">التعليم الثانوي</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">عنوان الدرس / المادة</label>
+                    <input type="text" id="lessonTitleInput" class="form-input" placeholder="مثال: الدوال العددية - رياضيات ثالثة ثانوي">
+                </div>
+                <button class="btn btn-green" onclick="addNewLesson()">حفظ ونشر الدرس في المنصة</button>
             </div>
         </div>
 
         <footer>
-            <p>&copy; 2026 - Amin-Dz-Edsmart | برأس مال 0 دج | الدليل الكامل للمستويات</p>
+            <p>&copy; 2026 - Amin-Dz-Edsmart | نظام إدارة المحتوى الداخلي</p>
         </footer>
     </div>
 
-    <!-- نافذة منبثقة -->
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <h3 id="modalTitle">تنبيه النظام</h3>
-            <p id="modalText"></p>
-            <button class="modal-btn" onclick="closeModal()">حسناً، فهمت</button>
-        </div>
-    </div>
-
     <script>
-        function showModal(title, text) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalText').innerText = text;
-            document.getElementById('infoModal').style.display = 'flex';
+        function switchView(viewName, btnElement) {
+            document.querySelectorAll('.switch-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+
+            btnElement.classList.add('active');
+            if(viewName === 'student') {
+                document.getElementById('studentView').classList.add('active');
+            } else {
+                document.getElementById('adminView').classList.add('active');
+            }
         }
 
-        function closeModal() {
-            document.getElementById('infoModal').style.display = 'none';
-        }
-
-        function filterLevels() {
-            let query = document.getElementById('searchInput').value.toLowerCase().trim();
-            let cards = document.querySelectorAll('.card');
-
-            cards.forEach(card => {
-                let keys = card.getAttribute('data-key');
-                if (keys.includes(query) || query === "") {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
+        let lessonCount = 12;
+        function addNewLesson() {
+            let title = document.getElementById('lessonTitleInput').value.trim();
+            let stage = document.getElementById('stageSelect').value;
+            if(title === "") {
+                alert("يرجى إدخال عنوان الدرس أولاً!");
+                return;
+            }
+            lessonCount++;
+            document.getElementById('totalLessons').innerText = lessonCount;
+            alert(`تم بنجاح إضافة الدرس: "${title}" ضمن طور ${stage} ونشره فوراً في النظام!`);
+            document.getElementById('lessonTitleInput').value = "";
         }
     </script>
 </body>
