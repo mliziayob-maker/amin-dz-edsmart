@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amin-Dz-Edsmart | المدرسة الافتراضية الذكية</title>
+    <!-- استيراد خط تجوال العصري والمناسب للهواتف -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        header {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        header h1 {
+            font-size: 1.25rem;
+            color: #38bdf8;
+            font-weight: 700;
+        }
+        header p {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 3px;
+        }
+        main {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .hero-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        .hero-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #f1f5f9;
+        }
+        .hero-card p {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #0284c7;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #0369a1;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .feature-item {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 12px;
+            border-right: 4px solid #38bdf8;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.75rem;
+            color: #64748b;
+            border-top: 1px solid #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Amin-Dz-Edsmart</h1>
+        <p>المنصة الذكية للتعليم حسب البرنامج الجزائري</p>
+    </header>
+
+    <main>
+        <div class="hero-card">
+            <h2>مرحباً بك في مستقبل التعلم</h2>
+            <p>مدرسة افتراضية مدعومة بالذكاء الاصطناعي، مصممة خصيصاً لمرافقة تلاميذ الأطوار التعليمية في الجزائر نحو التفوق والتميز.</p>
+            <a href="#levels" class="btn" onclick="alert('سيتم إطلاق المنهاج قريباً في النسخة التجريبية!')">اختر مستواك الدراسي</a>
+        </div>
+
+        <div class="features">
+            <div class="feature-item">📚 متوافقة 100% مع مناهج وزارة التربية الوطنية.</div>
+            <div class="feature-item">🤖 أستاذ مرافق بالذكاء الاصطناعي يجيبك خطوة بخطوة.</div>
+            <div class="feature-item">⚡ خفيفة وسريعة التصفح عبر هاتفك النقال مجاناً.</div>
+        </div>
+    </main>
+
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2026 - Amin-Dz-Edsmart</p>
+    </footer>
+
+</body>
+</html>
