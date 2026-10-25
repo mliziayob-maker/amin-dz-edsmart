@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية أمين | Amin-Dz-Edsmart</title>
+    <title>أكاديمية أمين | البوابة الشاملة للتعليم بالذكاء الاصطناعي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -31,22 +31,22 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 480px;
-            text-align: center;
+            max-width: 600px;
         }
 
-        .logo-area {
+        header {
+            text-align: center;
             margin-bottom: 25px;
+            margin-top: 15px;
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #60a5fa;
             margin-bottom: 8px;
             font-weight: 900;
@@ -55,8 +55,170 @@
         .subtitle {
             font-size: 0.95rem;
             color: var(--text-muted);
-            margin-bottom: 30px;
         }
 
         .card {
-            background:
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 24px 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .stage-title {
+            font-size: 1.1rem;
+            color: #60a5fa;
+            margin-bottom: 15px;
+            font-weight: bold;
+            border-right: 4px solid var(--accent);
+            padding-right: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge-dev {
+            font-size: 0.75rem;
+            background: rgba(217, 119, 6, 0.15);
+            color: var(--accent);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        @media (min-width: 480px) {
+            .btn-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            text-decoration: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, background 0.2s, border-color 0.2s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background: rgba(37, 99, 235, 0.2);
+            border-color: var(--secondary);
+        }
+
+        .btn-active {
+            background: linear-gradient(135deg, var(--secondary), #1d4ed8);
+            border: none;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-active-accent {
+            background: linear-gradient(135deg, var(--accent), #b45309);
+            border: none;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+        }
+
+        .features-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: #cbd5e1;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Amin-Dz-Edsmart</h1>
+            <p class="subtitle">المدرسة الافتراضية الذكية - مطابقة لمناهج التربية الجزائرية</p>
+        </header>
+
+        <!-- مميزات المنصة -->
+        <div class="features-box">
+            <div class="features-list">
+                <div>📚 تغطية شاملة لمناهج الأطوار التعليمية الثلاثة.</div>
+                <div>🤖 مرافقة ذكية وتفاعلية في حل التمارين.</div>
+                <div>⚡ خفيفة، مجانية تماماً، ومصممة خصيصاً للهاتف.</div>
+            </div>
+        </div>
+
+        <!-- 1. الطور المتوسط (BEM) - المفعل حالياً -->
+        <div class="card">
+            <div class="stage-title">
+                <span>📖 الطور المتوسط (BEM)</span>
+                <span class="badge-dev" style="background: rgba(34, 197, 94, 0.15); color: #22c55e;">نشط ومتاح</span>
+            </div>
+            <div class="btn-grid">
+                <a href="lesson.html" class="btn btn-active-accent">📐 رياضيات (PGCD)</a>
+                <a href="physics.html" class="btn btn-active">⚡ فيزياء وتكنولوجيا</a>
+                <a href="#" onclick="alert('قريباً جداً: مادة اللغة العربية وأصول التعبير الكتابي!'); return false;" class="btn">📖 لغة عربية</a>
+                <a href="#" onclick="alert('قريباً جداً: مادة العلوم الطبيعية والحياة!'); return false;" class="btn">🧬 علوم طبيعية</a>
+            </div>
+        </div>
+
+        <!-- 2. الطور الثانوي (Bac) -->
+        <div class="card">
+            <div class="stage-title">
+                <span>🎓 الطور الثانوي (BAC)</span>
+                <span class="badge-dev">قريباً</span>
+            </div>
+            <div class="btn-grid">
+                <a href="#" onclick="alert('قسم الطور الثانوي قيد الإنشاء ضمن التحديثات القادمة!'); return false;" class="btn">📐 الرياضيات</a>
+                <a href="#" onclick="alert('قسم الطور الثانوي قيد الإنشاء ضمن التحديثات القادمة!'); return false;" class="btn">⚡ العلوم الفيزيائية</a>
+                <a href="#" onclick="alert('قسم الطور الثانوي قيد الإنشاء ضمن التحديثات القادمة!'); return false;" class="btn">🧬 علوم الطبيعة والياة</a>
+                <a href="#" onclick="alert('قسم الطور الثانوي قيد الإنشاء ضمن التحديثات القادمة!'); return false;" class="btn"> فلسفة وتاريخ</a>
+            </div>
+        </div>
+
+        <!-- 3. الطور الابتدائي -->
+        <div class="card">
+            <div class="stage-title">
+                <span>🎒 الطور الابتدائي</span>
+                <span class="badge-dev">قريباً</span>
+            </div>
+            <div class="btn-grid">
+                <a href="#" onclick="alert('قسم الطور الابتدائي سيفتح تدريجياً!'); return false;" class="btn">🔢 الرياضيات</a>
+                <a href="#" onclick="alert('قسم الطور الابتدائي سيفتح تدريجياً!'); return false;" class="btn">✍️ اللغة العربية</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 - Amin-Dz-Edsmart | برأس مال 0 دج | صُنع بـ ❤️ لتلاميذ الجزائر</p>
+        </footer>
+    </div>
+
+</body>
+</html>
