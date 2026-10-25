@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>درس الرياضيات | القاسم المشترك الأكبر PGCD - أكاديمية أمين</title>
+    <title>درس الرياضيات والتمارين التفاعلية | PGCD - أكاديمية أمين</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -78,20 +78,20 @@
 
         h1 {
             color: var(--primary);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             margin-bottom: 15px;
         }
 
         h2 {
             color: var(--secondary);
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             margin-bottom: 12px;
             border-right: 4px solid var(--accent);
             padding-right: 10px;
         }
 
         p, li {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #334155;
             margin-bottom: 10px;
         }
@@ -161,9 +161,27 @@
             padding: 12px;
             border-radius: 8px;
             margin-top: 10px;
-            font-size: 0.9rem;
-            max-height: 200px;
+            font-size: 0.85rem;
+            max-height: 180px;
             overflow-y: auto;
+        }
+
+        /* تنسيق قسم التمارين التفاعلية */
+        .exercise-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 15px;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: none;
         }
 
         footer {
@@ -182,35 +200,28 @@
     </header>
 
     <div class="container">
-        <!-- معلومات المستوى -->
         <span class="badge">السنة الرابعة متوسط - BEM</span>
         
-        <!-- بطاقة عنوان الدرس -->
+        <!-- عنوان الدرس -->
         <div class="card">
             <h1>المقطع 01: القاسم المشترك الأكبر (PGCD) والكسور غير القابلة للاختزال</h1>
             <p>درس مفاهيمي ملخص وفق المنهج التربوي الرسمي للديوان الوطني للمسابقات والامتحانات.</p>
         </div>
 
-        <!-- بطاقة الشرح البيداغوجي -->
+        <!-- الشرح البيداغوجي -->
         <div class="card">
-            <h2>1. مفهوم القاسم المشترك الأكبر</h2>
+            <h2>1. ملخص الدرس الأساسي</h2>
             <p>نسمي القاسم المشترك الأكبر لعددين طبيعيين غير معدومين $a$ و $b$ أكبر قاسم يشتركان فيه، ونرمز له بـ: <strong>PGCD(a, b)</strong>.</p>
-            
-            <h2>2. طرق حساب PGCD</h2>
             <ul>
-                <li><strong>طريقة الفروق المتتالية (الطرح):</strong> تعتمد على طرْح العدد الأصغر من الأكبر تكراراً.</li>
-                <li><strong>خوارزمية إقليدس (القسمات المتتالية):</strong> وهي الطريقة الأسرع والأكثر اعتماداً في شهادة BEM، وتعتمد على القسمة الإقليدية حتى الحصول على باقي يناهز الصفر.</li>
+                <li><strong>خوارزمية إقليدس (القسمات المتتالية):</strong> الأسرع والأكثر اعتماداً في شهادة BEM.</li>
+                <li><strong>الكسر غير القابل للاختزال:</strong> يكون $\frac{a}{b}$ غير قابل للاختزال إذا كان $PGCD(a, b) = 1$.</li>
             </ul>
-
-            <h2>3. الكسر غير القابل للاختزال</h2>
-            <p>يكون الكسر $\frac{a}{b}$ غير قابل للاختزال إذا كان $PGCD(a, b) = 1$ (أي أن العددين أولياء فيما بينهما).</p>
         </div>
 
-        <!-- المساعد الذكي التفاعلي للدرس -->
+        <!-- المساعد الذكي / حاسبة الشرح -->
         <div class="card">
-            <h2>🤖 المساعد الذكي: أداة حساب PGCD مع شرح الخطوات</h2>
-            <p>أدخل أي عددين طبيعيين ليقوم المساعد الحسابي الذكي بإعطائك القاسم المشترك الأكبر وتوضيح جميع خطوات خوارزمية إقليدس مباشرة:</p>
-            
+            <h2>🤖 المساعد الذكي: حاسبة وشارح خطوط PGCD</h2>
+            <p>أدخل أي عددين لتستعرض خطوات خوارزمية إقليدس التفصيلية:</p>
             <div class="interactive-box">
                 <div class="input-group">
                     <input type="number" id="numA" placeholder="العدد الأول (a)" value="221">
@@ -220,9 +231,25 @@
 
                 <div id="resultOutput" style="display: none;">
                     <div class="result-area" id="finalResult"></div>
-                    <p style="margin-top: 10px; font-weight: bold; font-size: 0.9rem;">خطوات الحل (خوارزمية إقليدس):</p>
                     <div class="step-list" id="stepsOutput"></div>
                 </div>
+            </div>
+        </div>
+
+        <!-- قسم التمارين التفاعلية الجديدة -->
+        <div class="card">
+            <h2>✍️ قسم التمارين التفاعلية والتطبيقات (BEM)</h2>
+            <p>اختبر فهمك للدرس من خلال التمرين التجريبي التالي:</p>
+            
+            <div class="exercise-box">
+                <p><strong>تمرين تطبيقي:</strong> احسب القاسم المشترك الأكبر للعددين <strong>306</strong> و <strong>132</strong>، ثم اكتب الكسر $\frac{306}{132}$ على شكل كسر غير قابل للاختزال.</p>
+                
+                <div class="input-group">
+                    <input type="number" id="ansPgcd" placeholder="أدخل قيمة PGCD هنا">
+                </div>
+                <button onclick="checkExercise()" style="background: #d97706;">تحقق من الإجابة</button>
+                
+                <div id="exerciseFeedback" class="feedback"></div>
             </div>
         </div>
     </div>
@@ -231,7 +258,6 @@
         <p>&copy; 2026 - Amin-Dz-Edsmart | جميع الحقوق محفوظة</p>
     </footer>
 
-    <!-- برمجة تفاعل الأداة التعليمية -->
     <script>
         function calculatePGCD() {
             let a = parseInt(document.getElementById('numA').value);
@@ -246,7 +272,6 @@
             let originalB = b;
             let steps = [];
 
-            // خوارزمية إقليدس
             while (b !== 0) {
                 let remainder = a % b;
                 let quotient = Math.floor(a / b);
@@ -257,13 +282,32 @@
 
             let pgcd = a;
 
-            // عرض النتائج
             document.getElementById('resultOutput').style.display = 'block';
             document.getElementById('finalResult').innerHTML = 
-                `📌 PGCD(${originalA}, ${originalB}) = <span style="color: #2563eb; font-size: 1.2rem;">${pgcd}</span><br>` +
+                `📌 PGCD(${originalA}, ${originalB}) = <span style="color: #2563eb;">${pgcd}</span><br>` +
                 `💡 الكسر المختزل: <span style="color: #d97706;">${originalA/pgcd} / ${originalB/pgcd}</span>`;
             
             document.getElementById('stepsOutput').innerHTML = steps.join('<br>');
+        }
+
+        // دالة التحقق من إجابة التمرين التفاعلي (PGCD لـ 306 و 132 هو 6)
+        function checkExercise() {
+            let userAns = parseInt(document.getElementById('ansPgcd').value);
+            let feedback = document.getElementById('exerciseFeedback');
+            feedback.style.display = 'block';
+
+            // PGCD(306, 132) = 6
+            if (userAns === 6) {
+                feedback.style.background = '#dcfce7';
+                feedback.style.color = '#166534';
+                feedback.style.border = '1px solid #bbf7d0';
+                feedback.innerHTML = '🎉 إجابة صحيحة وممتازة! أحسنت. الكسر غير القابل للاختزال هو 51 / 22.';
+            } else {
+                feedback.style.background = '#fee2e2';
+                feedback.style.color = '#991b1b';
+                feedback.style.border = '1px solid #fecaca';
+                feedback.innerHTML = '❌ إجابة غير دقيقة. حاول استخدام خوارزمية إقليدس بالقسمات المتتالية، القاسم المشترك الأكبر هو 6.';
+            }
         }
     </script>
 </body>
