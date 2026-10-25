@@ -5,25 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أكاديمية أمين | البوابة الذكية للتعليم</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- ربط الإصدار لمنع مشاكل الكاش -->
+    <link rel="stylesheet" href="style.css?v=2026.2">
     <style>
         :root {
             --primary: #1e3a8a;
             --secondary: #2563eb;
             --accent: #d97706;
             --bg: #090d16;
-            --surface: rgba(30, 41, 59, 0.7);
+            --surface: rgba(30, 41, 59, 0.85);
             --surface-solid: #1e293b;
             --text: #f8fafc;
             --text-muted: #94a3b8;
-            --border: rgba(51, 65, 85, 0.6);
+            --border: rgba(51, 65, 85, 0.7);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
 
         body {
             background-color: var(--bg);
@@ -36,317 +33,146 @@
             background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg) 70%);
         }
 
-        .container {
-            width: 100%;
-            max-width: 520px;
-        }
+        .container { width: 100%; max-width: 540px; }
+        header { text-align: center; margin: 15px 0; }
+        
+        h1 { font-size: 1.8rem; color: #60a5fa; margin-bottom: 4px; font-weight: 900; }
+        .subtitle { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px; }
 
-        /* الهيدر العلوي */
-        header {
-            text-align: center;
-            margin: 20px 0;
+        /* التبويبات */
+        .tabs-nav {
+            display: flex; gap: 6px; margin-bottom: 15px;
+            background: rgba(15, 23, 42, 0.8); padding: 6px;
+            border-radius: 14px; border: 1px solid var(--border);
         }
-
-        .system-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(34, 197, 94, 0.1);
-            color: #4ade80;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-bottom: 12px;
+        .tab-btn {
+            flex: 1; background: transparent; border: none; color: var(--text-muted);
+            padding: 10px 8px; border-radius: 10px; font-size: 0.85rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s; text-align: center;
         }
+        .tab-btn.active { background: var(--secondary); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4); }
 
-        .pulse {
-            width: 8px;
-            height: 8px;
-            background-color: #4ade80;
-            border-radius: 50%;
-            box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
-            animation: pulse 2s infinite;
-        }
+        .stage-pane { display: none; }
+        .stage-pane.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
-            70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-        }
-
-        h1 {
-            font-size: 1.85rem;
-            color: #60a5fa;
-            margin-bottom: 6px;
-            font-weight: 900;
-            letter-spacing: -0.5px;
-        }
-
-        .subtitle {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        /* شريط البحث الذكي */
-        .search-box {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .search-input {
-            width: 100%;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 12px 16px 12px 40px;
-            border-radius: 14px;
-            color: white;
-            font-size: 0.9rem;
-            outline: none;
-            backdrop-filter: blur(10px);
-            transition: border-color 0.3px;
-        }
-
-        .search-input:focus {
-            border-color: var(--secondary);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        /* بطاقات الأطوار (Glassmorphism) */
         .card {
-            background: var(--surface);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-            margin-bottom: 16px;
+            background: var(--surface); backdrop-filter: blur(12px);
+            border-radius: 18px; padding: 20px; border: 1px solid var(--border);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); margin-bottom: 15px;
         }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
+        .section-title {
+            font-size: 1rem; color: #60a5fa; margin-bottom: 12px; font-weight: bold;
+            border-right: 3px solid var(--accent); padding-right: 8px;
         }
+        .sub-sect { font-size: 0.85rem; color: #fbbf24; margin: 12px 0 8px 0; font-weight: bold; }
 
-        .stage-title {
-            font-size: 1.05rem;
-            color: #f1f5f9;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .status-tag {
-            font-size: 0.75rem;
-            padding: 3px 10px;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-
-        .tag-active {
-            background: rgba(34, 197, 94, 0.15);
-            color: #4ade80;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-        }
-
-        .tag-soon {
-            background: rgba(217, 119, 6, 0.15);
-            color: #fbbf24;
-            border: 1px solid rgba(217, 119, 6, 0.3);
-        }
-
-        /* شبكة الأزرار */
-        .grid-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
         .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text);
-            text-decoration: none;
-            padding: 12px 10px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            border: 1px solid var(--border);
-            transition: all 0.2s ease;
-            text-align: center;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            background: rgba(255, 255, 255, 0.04); color: var(--text); text-decoration: none;
+            padding: 12px 10px; border-radius: 12px; font-weight: 700; font-size: 0.82rem;
+            border: 1px solid var(--border); transition: all 0.2s; text-align: center; cursor: pointer;
         }
+        .btn:hover { transform: translateY(-2px); background: rgba(37, 99, 235, 0.2); border-color: var(--secondary); }
+        .btn-accent { background: linear-gradient(135deg, var(--accent), #b45309); border: none; color: white; }
+        .btn-primary { background: linear-gradient(135deg, var(--secondary), #1d4ed8); border: none; color: white; }
+        .btn-full { grid-column: span 2; }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            background: rgba(37, 99, 235, 0.2);
-            border-color: var(--secondary);
-        }
-
-        .btn-primary-custom {
-            background: linear-gradient(135deg, var(--secondary), #1d4ed8);
-            border: none;
-            color: white;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
-        }
-
-        .btn-accent-custom {
-            background: linear-gradient(135deg, var(--accent), #b45309);
-            border: none;
-            color: white;
-            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.35);
-        }
-
-        .btn-full {
-            grid-column: span 2;
-        }
-
-        /* صندوق الإشعار الذكي */
+        /* نافذة تنبيه نظيفة */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
+            justify-content: center; align-items: center; z-index: 1000; padding: 20px;
         }
-
         .modal-content {
-            background: var(--surface-solid);
-            border: 1px solid var(--border);
-            padding: 24px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            background: var(--surface-solid); border: 1px solid var(--border);
+            padding: 24px; border-radius: 20px; width: 100%; max-width: 380px; text-align: center;
         }
-
-        .modal-content h3 {
-            color: #60a5fa;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .modal-content p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .modal-btn {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        footer {
-            margin-top: 15px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-align: center;
-            padding-bottom: 20px;
-        }
+        .modal-content h3 { color: #60a5fa; margin-bottom: 10px; font-size: 1.1rem; }
+        .modal-content p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px; line-height: 1.5; }
+        .modal-btn { background: var(--secondary); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
+        footer { margin-top: 15px; font-size: 0.75rem; color: var(--text-muted); text-align: center; padding-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- الهيدر ومعرف الحالة -->
         <header>
-            <div class="system-badge">
-                <div class="pulse"></div>
-                <span>النظام الذكي نشط ومجاني 100%</span>
-            </div>
             <h1>Amin-Dz-Edsmart</h1>
-            <p class="subtitle">البوابة الافتراضية المتقدمة لمناهج التعليم الجزائرية</p>
+            <p class="subtitle">المدرسة الافتراضية الذكية - هندسة مأمونة ومحدثة</p>
         </header>
 
-        <!-- شريط البحث الفوري -->
-        <div class="search-box">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن درس، مادة، أو مفهوم (مثل: PGCD، التكهرب)..." onkeyup="filterLessons()">
+        <!-- التبويبات -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchStage('middle', this)">📖 المتوسط (BEM)</button>
+            <button class="tab-btn" onclick="switchStage('secondary', this)">🎓 الثانوي (BAC)</button>
+            <button class="tab-btn" onclick="switchStage('primary', this)">🎒 الابتدائي</button>
         </div>
 
-        <!-- 1. الطور المتوسط (BEM) - النشط -->
-        <div class="card" data-stage=" متوسط bem رياضيات فيزياء">
-            <div class="card-header">
-                <span class="stage-title">📖 الطور المتوسط (BEM)</span>
-                <span class="status-tag tag-active">متاح الآن</span>
-            </div>
-            <div class="grid-buttons">
-                <a href="lesson.html" class="btn btn-accent-custom">📐 رياضيات (PGCD)</a>
-                <a href="physics.html" class="btn btn-primary-custom">⚡ فيزياء وتكنولوجيا</a>
-                <a href="#" onclick="showModal('اللغة العربية', 'قريباً جداً: قسم النصوص العبيرية وقواعد اللغة سيفتح ضمن التحديث القادم.'); return false;" class="btn">📖 لغة عربية</a>
-                <a href="#" onclick="showModal('العلوم الطبيعية', 'قريباً جداً: مختبر العلوم الطبيعية والحياة قيد التطوير الهندسي.'); return false;" class="btn">🧬 علوم طبيعية</a>
-            </div>
-        </div>
-
-        <!-- 2. الطور الثانوي (Bac) -->
-        <div class="card" data-stage=" ثانوي باك bac رياضيات فيزياء">
-            <div class="card-header">
-                <span class="stage-title">🎓 الطور الثانوي (BAC)</span>
-                <span class="status-tag tag-soon">قريباً</span>
-            </div>
-            <div class="grid-buttons">
-                <a href="#" onclick="showModal('الطور الثانوي', 'هذا القسم قيد الإنشاء الهندسي ليناسب تحضيرات شهادة البكالوريا.'); return false;" class="btn">📐 الرياضيات</a>
-                <a href="#" onclick="showModal('الطور الثانوي', 'هذا القسم قيد الإنشاء الهندسي ليناسب تحضيرات شهادة البكالوريا.'); return false;" class="btn">⚡ العلوم الفيزيائية</a>
-                <a href="#" onclick="showModal('الطور الثانوي', 'هذا القسم قيد الإنشاء الهندسي ليناسب تحضيرات شهادة البكالوريا.'); return false;" class="btn btn-full">🧬 علوم الطبيعة والحياة وفلسفة</a>
-            </div>
-        </div>
-
-        <!-- 3. الطور الابتدائي -->
-        <div class="card" data-stage=" ابتدائي رياضيات عربية">
-            <div class="card-header">
-                <span class="stage-title">🎒 الطور الابتدائي</span>
-                <span class="status-tag tag-soon">قريباً</span>
-            </div>
-            <div class="grid-buttons">
-                <a href="#" onclick="showModal('الطور الابتدائي', 'برامج الابتدائي الذكية ستفتح تدريجياً لدعم البراعم الصغار.'); return false;" class="btn">🔢 أساسيات الرياضيات</a>
-                <a href="#" onclick="showModal('الطور الابتدائي', 'برامج الابتدائي الذكية ستفتح تدريجياً لدعم البراعم الصغار.'); return false;" class="btn">✍️ اللغة العربية</a>
-            </div>
-        </div>
+        <!-- حاوية المحتوى الديناميكي -->
+        <div id="appContainer"></div>
 
         <footer>
-            <p>&copy; 2026 - Amin-Dz-Edsmart | برأس مال 0 دج | صُنع بعناية لتلاميذ الجزائر</p>
+            <p>&copy; 2026 - Amin-Dz-Edsmart | برأس مال 0 دج</p>
         </footer>
     </div>
 
-    <!-- نافذة منبثقة تفاعلية ذكية -->
+    <!-- النافذة المنبثقة -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle">تنبيه النظام</h3>
-            <p id="modalText">محتوى النص هنا...</p>
+            <p id="modalText"></p>
             <button class="modal-btn" onclick="closeModal()">حسناً، فهمت</button>
         </div>
     </div>
 
+    <!-- استدعاء ملف البيانات المنفصل -->
+    <script src="data.js?v=2026.2"></script>
     <script>
+        // المحرك البرمجي لعرض البيانات بنظافة تامة
+        let currentStage = 'middle';
+
+        function renderStage(stageKey) {
+            currentStage = stageKey;
+            const container = document.getElementById('appContainer');
+            const data = ACADEMY_DATA[stageKey];
+            
+            let html = `<div class="stage-pane active"><div class="card">`;
+            
+            if (stageKey === 'secondary') {
+                // عرض خاص بالثانوي (شعب متعددة)
+                html += `<div class="section-title">${data.title}</div>`;
+                data.sections.forEach(sect => {
+                    html += `<div class="sub-sect">${sect.sectName}</div><div class="btn-grid">`;
+                    sect.items.forEach(item => {
+                        let btnClass = item.active ? 'btn btn-primary' : 'btn';
+                        let clickAction = item.active ? `window.location.href='${item.url}'` : `showModal('${item.name}', '${item.msg}')`;
+                        html += `<button class="${btnClass} ${item.items && item.items.length > 2 ? 'btn-full':''}" onclick="${clickAction}">${item.name}</button>`;
+                    });
+                    html += `</div>`;
+                });
+            } else {
+                // عرض المتوسط والابتدائي
+                html += `<div class="section-title">${data.title}</div><div class="btn-grid">`;
+                data.subjects.forEach(sub => {
+                    let btnClass = sub.accent ? 'btn btn-accent' : (sub.active ? 'btn btn-primary' : 'btn');
+                    let clickAction = sub.active ? `window.location.href='${sub.url}'` : `showModal('${sub.name}', '${sub.msg}')`;
+                    html += `<button class="${btnClass}" onclick="${clickAction}">${sub.name}</button>`;
+                });
+                html += `</div>`;
+            }
+
+            html += `</div></div>`;
+            container.innerHTML = html;
+        }
+
+        function switchStage(stageKey, btnElement) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            renderStage(stageKey);
+        }
+
         function showModal(title, text) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalText').innerText = text;
@@ -357,20 +183,8 @@
             document.getElementById('infoModal').style.display = 'none';
         }
 
-        // وظيفة البحث الذكي السريع بين البطاقات
-        function filterLessons() {
-            let query = document.getElementById('searchInput').value.toLowerCase().trim();
-            let cards = document.querySelectorAll('.card');
-
-            cards.forEach(card => {
-                let keywords = card.getAttribute('data-stage');
-                if (keywords.includes(query) || query === "") {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        }
+        // التشغيل الأولي
+        renderStage('middle');
     </script>
 </body>
 </html>
