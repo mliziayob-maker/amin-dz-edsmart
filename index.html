@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية أمين | نظام التوليد التلقائي والتحكم</title>
+    <title>أكاديمية أمين | البوابة الشاملة لجميع المواد والمستويات</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -33,71 +33,65 @@
             background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg) 70%);
         }
 
-        .container { width: 100%; max-width: 620px; }
+        .container { width: 100%; max-width: 640px; }
 
         header { text-align: center; margin: 15px 0; }
         h1 { font-size: 1.8rem; color: #60a5fa; margin-bottom: 4px; font-weight: 900; }
         .subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; }
 
-        /* شريط التبديل بين الأقسام */
-        .nav-switch {
-            display: flex; gap: 6px; margin-bottom: 20px;
-            background: rgba(15, 23, 42, 0.9); padding: 6px;
-            border-radius: 14px; border: 1px solid var(--border);
+        /* شريط البحث السريع */
+        .search-box { position: relative; margin-bottom: 20px; }
+        .search-input {
+            width: 100%; background: var(--surface); border: 1px solid var(--border);
+            padding: 11px 14px 11px 40px; border-radius: 12px; color: white;
+            font-size: 0.85rem; outline: none; backdrop-filter: blur(10px);
         }
-        .switch-btn {
-            flex: 1; background: transparent; border: none; color: var(--text-muted);
-            padding: 10px 4px; border-radius: 10px; font-size: 0.8rem; font-weight: 700;
-            cursor: pointer; transition: all 0.3s; text-align: center;
-        }
-        .switch-btn.active { background: var(--secondary); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4); }
+        .search-input:focus { border-color: var(--secondary); }
+        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
-        .view-section { display: none; }
-        .view-section.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-
+        /* بطاقات الأطوار والمستويات */
         .card {
             background: var(--surface); backdrop-filter: blur(12px);
-            border-radius: 18px; padding: 20px; border: 1px solid var(--border);
+            border-radius: 18px; padding: 18px; border: 1px solid var(--border);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); margin-bottom: 15px;
         }
 
-        .section-title {
-            font-size: 1rem; color: #60a5fa; margin-bottom: 12px; font-weight: bold;
-            border-right: 3px solid var(--accent); padding-right: 8px;
+        .card-header {
             display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;
         }
+        .stage-title { font-size: 1.05rem; color: #f1f5f9; font-weight: 700; }
+        .stage-badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 6px; font-weight: bold; background: rgba(37, 99, 235, 0.2); color: #60a5fa; border: 1px solid rgba(37, 99, 235, 0.4); }
 
-        .form-group { margin-bottom: 12px; text-align: right; }
-        .form-label { display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 5px; font-weight: bold; }
-        .form-input, .form-select {
-            width: 100%; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border);
-            padding: 10px 12px; border-radius: 10px; color: white; font-size: 0.85rem; outline: none;
-        }
-        .form-input:focus, .form-select:focus { border-color: var(--secondary); }
+        .level-group { margin: 10px 0; }
+        .level-title { font-size: 0.83rem; color: #60a5fa; font-weight: bold; margin-bottom: 6px; border-right: 2px solid var(--accent); padding-right: 6px; }
 
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
         .btn {
             display: flex; align-items: center; justify-content: center; gap: 6px;
-            background: var(--secondary); color: white; text-decoration: none;
-            padding: 12px; border-radius: 12px; font-weight: 700; font-size: 0.85rem;
-            border: none; transition: all 0.2s; text-align: center; cursor: pointer; width: 100%;
+            background: rgba(255, 255, 255, 0.04); color: var(--text); text-decoration: none;
+            padding: 9px 8px; border-radius: 10px; font-weight: 700; font-size: 0.78rem;
+            border: 1px solid var(--border); transition: all 0.2s; text-align: center; cursor: pointer;
         }
-        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn-purple { background: linear-gradient(135deg, var(--purple), #6d28d9); }
-        .btn-green { background: var(--green); }
+        .btn:hover { background: rgba(37, 99, 235, 0.2); border-color: var(--secondary); }
+        .btn-accent { background: linear-gradient(135deg, var(--accent), #b45309); border: none; color: white; }
+        .btn-primary { background: linear-gradient(135deg, var(--secondary), #1d4ed8); border: none; color: white; }
+        .btn-full { grid-column: span 2; }
 
-        /* منطقة نتائج التوليد الذكي */
-        .generated-box {
-            background: rgba(15, 23, 42, 0.9); border: 1px dashed var(--purple);
-            border-radius: 14px; padding: 15px; margin-top: 15px; display: none;
+        /* نافذة منبثقة لعرض محتوى المادة أو الدرس */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px);
+            justify-content: center; align-items: center; z-index: 1000; padding: 20px;
         }
-        .generated-box.active { display: block; animation: fadeIn 0.4s ease; }
-        .quiz-option {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
-            padding: 8px 12px; border-radius: 8px; margin-top: 6px; font-size: 0.82rem;
-            cursor: pointer; transition: all 0.2s;
+        .modal-content {
+            background: var(--surface-solid); border: 1px solid var(--border);
+            padding: 22px; border-radius: 18px; width: 100%; max-width: 400px; text-align: right;
+            max-height: 85vh; overflow-y: auto;
         }
-        .quiz-option:hover { background: rgba(37, 99, 235, 0.2); border-color: var(--secondary); }
+        .modal-content h3 { color: #60a5fa; margin-bottom: 8px; font-size: 1.1rem; text-align: center; }
+        .modal-content p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px; line-height: 1.5; }
+        .modal-btn { background: var(--secondary); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
 
         footer { margin-top: 15px; font-size: 0.75rem; color: var(--text-muted); text-align: center; padding-bottom: 20px; }
     </style>
@@ -107,144 +101,49 @@
     <div class="container">
         <header>
             <h1>أكاديمية أمين</h1>
-            <p class="subtitle">المنصة التعليمية الذكية - نظام التوليد التلقائي للدروس والتمارين</p>
+            <p class="subtitle">البوابة الشاملة لجميع المواد، المستويات، والمناهج في الجزائر</p>
         </header>
 
-        <!-- شريط التنقل -->
-        <div class="nav-switch">
-            <button class="switch-btn active" onclick="switchView('generator', this)">🤖 التوليد الذكي (AI)</button>
-            <button class="switch-btn" onclick="switchView('student', this)">🎓 واجهة الطالب</button>
-            <button class="switch-btn" onclick="switchView('admin', this)">⚙️ الإدارة والتخزين</button>
+        <!-- شريط البحث الفوري -->
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن مادة، درس، أو سنة دراسية..." onkeyup="filterContent()">
         </div>
 
-        <!-- 1. قسم التوليد التلقائي بالذكاء الاصطناعي -->
-        <div id="generatorView" class="view-section active">
-            <div class="card">
-                <div class="section-title">
-                    <span>✨ توليد تمارين وملخصات تلقائياً</span>
-                    <span style="font-size: 0.7rem; background: rgba(139, 92, 246, 0.2); color: #c084fc; padding: 2px 8px; border-radius: 6px;">ذكاء اصطناعي</span>
+        <!-- 1. التعليم الابتدائي -->
+        <div class="card" data-key="ابتدائي أولى ثانية ثالثة رابعة خامسة رياضيات عربية فرنسية">
+            <div class="card-header">
+                <span class="stage-title">🎒 التعليم الابتدائي</span>
+                <span class="stage-badge">5 مستويات</span>
+            </div>
+            
+            <div class="level-group">
+                <div class="level-title">السنة الخامسة ابتدائي (نهاية الابتدائي)</div>
+                <div class="btn-grid">
+                    <button class="btn btn-primary" onclick="openSubjectModal('السنة 5 ابتدائي', 'اللغة العربية', ['قواعد إعراب الجمل المفيدة', 'التعبير الكتابي وإنتاج الوضعيات', 'فهم النص والأسئلة'])">📖 اللغة العربية</button>
+                    <button class="btn btn-accent" onclick="openSubjectModal('السنة 5 ابتدائي', 'الرياضيات', ['الأعداد الكسرية والعشرية', 'التناسبية والنسب المئوية', 'المساحات والمحيطات الهندسية'])">📐 الرياضيات</button>
+                    <button class="btn" onclick="openSubjectModal('السنة 5 ابتدائي', 'الفرنسية', ['Les adjectifs qualificatifs', 'Le présent de l\'indicatif', 'Production écrite'])">🇫🇷 الفرنسية</button>
+                    <button class="btn" onclick="openSubjectModal('السنة 5 ابتدائي', 'التربية الإسلامية والمدنية', ['أركان الإيمان والإحسان', 'مؤسسات الدولة الجزائرية'])">islamic التربية الإسلامية</button>
                 </div>
-                
-                <div class="form-group">
-                    <label class="form-label">اختر المستوى / الطور الدراسي</label>
-                    <select id="aiLevel" class="form-select">
-                        <option value="السنة الرابعة متوسط (BEM)">السنة الرابعة متوسط (BEM)</option>
-                        <option value="السنة الثالثة ثانوي (BAC)">السنة الثالثة ثانوي (BAC)</option>
-                        <option value="السنة الأولى ثانوي">السنة الأولى ثانوي</option>
-                        <option value="الطور الابتدائي">التعليم الابتدائي</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">المفهوم أو موضوع الدرس</label>
-                    <input type="text" id="aiTopic" class="form-input" placeholder="مثال: القاسم المشترك الأكبر PGCD، التكهرب، الإعراب...">
-                </div>
-
-                <button class="btn btn-purple" onclick="generateContent()">✨ توليد ملخص وسؤال تفاعلي فوراً</button>
-
-                <!-- النتيجة المتولدة تلقائياً -->
-                <div id="aiOutput" class="generated-box">
-                    <h4 id="resTopic" style="color: #c084fc; margin-bottom: 6px; font-size: 0.95rem;"></h4>
-                    <p id="resSummary" style="font-size: 0.83rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;"></p>
-                    
-                    <div style="font-size: 0.85rem; font-weight: bold; color: white; margin-bottom: 6px;">📝 سؤال تطبيق سريع:</div>
-                    <div id="resQuestion" style="font-size: 0.83rem; color: #60a5fa; margin-bottom: 8px;"></div>
-                    <div id="resOptions"></div>
-                    <div id="resAnswer" style="display: none; margin-top: 10px; font-size: 0.8rem; color: var(--green); font-weight: bold;"></div>
+            </div>
+            <div class="level-group">
+                <div class="level-title">باقي سنوات الابتدائي (1، 2، 3، 4)</div>
+                <div class="btn-grid">
+                    <button class="btn btn-full" onclick="openSubjectModal('التعليم الابتدائي', 'الأساسيات والمواد المشتركة', ['الحساب الذهني المبسط', 'القراءة والكتابة العربية', 'التربية العلمية والتكنولوجية'])">📚 استعراض مواد سنوات (1 إلى 4)</button>
                 </div>
             </div>
         </div>
 
-        <!-- 2. واجهة الطالب -->
-        <div id="studentView" class="view-section">
-            <div class="card">
-                <div class="section-title">📖 الدروس المحفوظة بالذكاء الاصطناعي</div>
-                <div id="studentLessonsList" style="display: flex; flex-direction: column; gap: 8px;">
-                    <p style="font-size: 0.83rem; color: var(--text-muted); text-align: center;">لا توجد دروس جديدة مولدة. استخدم أداة التوليد الذكي أولاً!</p>
-                </div>
+        <!-- 2. التعليم المتوسط -->
+        <div class="card" data-key="متوسط أولى ثانية ثالثة رابعة bem رياضيات فيزياء علوم عربية إنجليزية تاريخ جغرافيا">
+            <div class="card-header">
+                <span class="stage-title">📖 التعليم المتوسط (CEM)</span>
+                <span class="stage-badge">BEM مفعل</span>
             </div>
-        </div>
-
-        <!-- 3. لوحة التحكم والإدارة -->
-        <div id="adminView" class="view-section">
-            <div class="card">
-                <div class="section-title">📊 إحصائيات النظام والتخزين المحلي</div>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">جميع الملخصات والأسئلة المولدة تُحفظ تلقائياً داخل الذاكرة المحلية (`LocalStorage`) ليعاد استخدامها بدون إنترنت.</p>
-                <button class="btn btn-green" onclick="saveToStorage()">💾 حفظ البيانات المفتوحة</button>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2026 - Amin-Dz-Edsmart | وحدة التوليد التلقائي المتقدمة</p>
-        </footer>
-    </div>
-
-    <script>
-        function switchView(viewName, btnElement) {
-            document.querySelectorAll('.switch-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
-
-            btnElement.classList.add('active');
-            document.getElementById(viewName + 'View').classList.add('active');
-        }
-
-        // محرك التوليد التلقائي للمناهج الجزائرية
-        function generateContent() {
-            let topic = document.getElementById('aiTopic').value.trim();
-            let level = document.getElementById('aiLevel').value;
-
-            if(!topic) {
-                alert("يرجى كتابة المفهوم أو موضوع الدرس أولاً!");
-                return;
-            }
-
-            // محاكاة استجابة التوليد الذكي الفوري وفق المنهج الجزائري
-            document.getElementById('resTopic').innerText = `📚 ملخص درس: ${topic} (${level})`;
-            document.getElementById('resSummary').innerText = `هذا المفهوم يُعتبر أساسياً في برنامج ${level}. يعتمد على فهم الخواص الرئيسية وتطبيق القوانين المعتمدة في امتحانات التربية الوطنية.`;
             
-            document.getElementById('resQuestion').innerText = `ما هي الخطوة الأولى الأساسية عند حساب أو معالجة [${topic}]؟`;
-            
-            let optionsHtml = `
-                <div class="quiz-option" onclick="checkAnswer(true)">أ) تحديد المعطيات واستخراج القواعد الأساسية (صحيح)</div>
-                <div class="quiz-option" onclick="checkAnswer(false)">ب) تطبيق نتائج غير مباشرة دون التثبت</div>
-                <div class="quiz-option" onclick="checkAnswer(false)">ج) التخمين دون استخدام الخطوات الرسمية</div>
-            `;
-            document.getElementById('resOptions').innerHTML = optionsHtml;
-            document.getElementById('resAnswer').style.display = 'none';
-
-            let box = document.getElementById('aiOutput');
-            box.classList.add('active');
-
-            // إضافة الدرس التلقائي لحافظة واجهة الطالب
-            addLessonToStudentView(topic, level);
-        }
-
-        function checkAnswer(isCorrect) {
-            let ansDiv = document.getElementById('resAnswer');
-            ansDiv.style.display = 'block';
-            if(isCorrect) {
-                ansDiv.style.color = '#10b981';
-                ansDiv.innerText = '✅ إجابة صحيحة! أحسنت، تم استيعاب المفهوم بنجاح.';
-            } else {
-                ansDiv.style.color = '#ef4444';
-                ansDiv.innerText = '❌ إجابة خاطئة! راجع خيار (أ) لتطبيق المنهجية الصحيحة.';
-            }
-        }
-
-        function addLessonToStudentView(topic, level) {
-            let list = document.getElementById('studentLessonsList');
-            if(list.querySelector('p')) { list.innerHTML = ''; }
-            
-            let item = document.createElement('div');
-            item.className = 'quiz-option';
-            item.style.background = 'rgba(30, 41, 59, 0.8)';
-            item.innerHTML = `<strong>✨ ${topic}</strong> <span style="font-size:0.75rem; color:#94a3b8;">(${level})</span>`;
-            list.appendChild(item);
-        }
-
-        function saveToStorage() {
-            alert("تم حفظ جميع البيانات والمحتويات المولدة في ذاكرة المتصفح بنجاح!");
-        }
-    </script>
-</body>
-</html>
+            <div class="level-group">
+                <div class="level-title">⭐ السنة الرابعة متوسط (BEM - المواد الكاملة)</div>
+                <div class="btn-grid">
+                    <button class="btn btn-accent" onclick="openSubjectModal('السنة 4 متوسط', 'الرياضيات', ['قاسم عدد طبيعي (PGCD)', 'الحساب على الجذور التربيعية', 'النشر والتحليل والمعادلات'])">📐 الرياضيات (PGCD)</button>
+                    <button class="btn btn-primary" onclick="openSubjectModal('السنة 4 متوسط', 'الفيزياء وتكنولوجيا', ['الشاردة والمحلول الشاردي', 'الميدان المغناطيسي والتحريض', 'الأمن الكهربائي'])">⚡ الفيزياء وتكنولوجيا</button>
+                    <button class="btn" onclick="openSubjectModal('السنة 4 متوسط',
