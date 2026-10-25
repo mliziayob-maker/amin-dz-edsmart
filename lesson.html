@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درس الرياضيات | القاسم المشترك الأكبر PGCD - أكاديمية أمين</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #2563eb;
+            --accent: #d97706;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding-bottom: 40px;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: var(--secondary);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--secondary);
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            border-right: 4px solid var(--accent);
+            padding-right: 10px;
+        }
+
+        p, li {
+            font-size: 1rem;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            padding-right: 20px;
+        }
+
+        .interactive-box {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 15px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        input {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: var(--primary);
+        }
+
+        .result-area {
+            margin-top: 15px;
+            padding: 12px;
+            background: #ffffff;
+            border-radius: 8px;
+            border-right: 3px solid #22c55e;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .step-list {
+            font-family: monospace;
+            direction: ltr;
+            text-align: left;
+            background: #1e293b;
+            color: #38bdf8;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>🎓 <strong>أكاديمية أمين</strong></div>
+        <a href="index.html">← الرئيسية</a>
+    </header>
+
+    <div class="container">
+        <!-- معلومات المستوى -->
+        <span class="badge">السنة الرابعة متوسط - BEM</span>
+        
+        <!-- بطاقة عنوان الدرس -->
+        <div class="card">
+            <h1>المقطع 01: القاسم المشترك الأكبر (PGCD) والكسور غير القابلة للاختزال</h1>
+            <p>درس مفاهيمي ملخص وفق المنهج التربوي الرسمي للديوان الوطني للمسابقات والامتحانات.</p>
+        </div>
+
+        <!-- بطاقة الشرح البيداغوجي -->
+        <div class="card">
+            <h2>1. مفهوم القاسم المشترك الأكبر</h2>
+            <p>نسمي القاسم المشترك الأكبر لعددين طبيعيين غير معدومين $a$ و $b$ أكبر قاسم يشتركان فيه، ونرمز له بـ: <strong>PGCD(a, b)</strong>.</p>
+            
+            <h2>2. طرق حساب PGCD</h2>
+            <ul>
+                <li><strong>طريقة الفروق المتتالية (الطرح):</strong> تعتمد على طرْح العدد الأصغر من الأكبر تكراراً.</li>
+                <li><strong>خوارزمية إقليدس (القسمات المتتالية):</strong> وهي الطريقة الأسرع والأكثر اعتماداً في شهادة BEM، وتعتمد على القسمة الإقليدية حتى الحصول على باقي يناهز الصفر.</li>
+            </ul>
+
+            <h2>3. الكسر غير القابل للاختزال</h2>
+            <p>يكون الكسر $\frac{a}{b}$ غير قابل للاختزال إذا كان $PGCD(a, b) = 1$ (أي أن العددين أولياء فيما بينهما).</p>
+        </div>
+
+        <!-- المساعد الذكي التفاعلي للدرس -->
+        <div class="card">
+            <h2>🤖 المساعد الذكي: أداة حساب PGCD مع شرح الخطوات</h2>
+            <p>أدخل أي عددين طبيعيين ليقوم المساعد الحسابي الذكي بإعطائك القاسم المشترك الأكبر وتوضيح جميع خطوات خوارزمية إقليدس مباشرة:</p>
+            
+            <div class="interactive-box">
+                <div class="input-group">
+                    <input type="number" id="numA" placeholder="العدد الأول (a)" value="221">
+                    <input type="number" id="numB" placeholder="العدد الثاني (b)" value="85">
+                </div>
+                <button onclick="calculatePGCD()">احسب وشرح الخطوات</button>
+
+                <div id="resultOutput" style="display: none;">
+                    <div class="result-area" id="finalResult"></div>
+                    <p style="margin-top: 10px; font-weight: bold; font-size: 0.9rem;">خطوات الحل (خوارزمية إقليدس):</p>
+                    <div class="step-list" id="stepsOutput"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 - Amin-Dz-Edsmart | جميع الحقوق محفوظة</p>
+    </footer>
+
+    <!-- برمجة تفاعل الأداة التعليمية -->
+    <script>
+        function calculatePGCD() {
+            let a = parseInt(document.getElementById('numA').value);
+            let b = parseInt(document.getElementById('numB').value);
+
+            if (!a || !b || a <= 0 || b <= 0) {
+                alert("يرجى إدخال أعداد طبيعية أكبر من الصفر.");
+                return;
+            }
+
+            let originalA = a;
+            let originalB = b;
+            let steps = [];
+
+            // خوارزمية إقليدس
+            while (b !== 0) {
+                let remainder = a % b;
+                let quotient = Math.floor(a / b);
+                steps.push(`${a} = ${b} × ${quotient} + ${remainder}`);
+                a = b;
+                b = remainder;
+            }
+
+            let pgcd = a;
+
+            // عرض النتائج
+            document.getElementById('resultOutput').style.display = 'block';
+            document.getElementById('finalResult').innerHTML = 
+                `📌 PGCD(${originalA}, ${originalB}) = <span style="color: #2563eb; font-size: 1.2rem;">${pgcd}</span><br>` +
+                `💡 الكسر المختزل: <span style="color: #d97706;">${originalA/pgcd} / ${originalB/pgcd}</span>`;
+            
+            document.getElementById('stepsOutput').innerHTML = steps.join('<br>');
+        }
+    </script>
+</body>
+</html>
