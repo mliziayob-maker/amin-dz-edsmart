@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية أمين | محرك التوليد الذكي الشامل</title>
+    <title>أكاديمية أمين | الدروس التفصيلية والخرائط الذهنية</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,6 +18,7 @@
             --border: rgba(51, 65, 85, 0.7);
             --green: #10b981;
             --purple: #8b5cf6;
+            --pink: #ec4899;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
@@ -33,9 +34,9 @@
             background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg) 70%);
         }
 
-        .container { width: 100%; max-width: 650px; }
+        .container { width: 100%; max-width: 680px; }
 
-        header { text-align: center; margin: 15px 0 25px 0; }
+        header { text-align: center; margin: 15px 0 20px 0; }
         h1 { font-size: 1.8rem; color: #60a5fa; margin-bottom: 4px; font-weight: 900; }
         .subtitle { font-size: 0.85rem; color: var(--text-muted); }
 
@@ -68,27 +69,49 @@
         }
         .btn-purple:hover { transform: translateY(-1px); opacity: 0.95; }
 
-        /* منطقةعرض الدرس والتمارين التفاعلية */
+        /* منطقة النتائج */
         .result-box {
             display: none; background: rgba(15, 23, 42, 0.95); border: 1px solid var(--purple);
-            border-radius: 16px; padding: 20px; margin-top: 20px; line-height: 1.6;
+            border-radius: 18px; padding: 22px; margin-top: 20px; line-height: 1.6;
         }
         .result-box.active { display: block; animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
         .badge { font-size: 0.75rem; background: rgba(139, 92, 246, 0.2); color: #c084fc; padding: 3px 10px; border-radius: 8px; border: 1px solid rgba(139, 92, 246, 0.4); display: inline-block; margin-bottom: 10px; }
         
-        .lesson-section { margin-bottom: 18px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+        .lesson-section { margin-bottom: 22px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
         .lesson-section:last-child { border-bottom: none; }
-        .lesson-subtitle { font-size: 0.95rem; color: #60a5fa; margin-bottom: 8px; font-weight: bold; }
-        .lesson-text { font-size: 0.85rem; color: #e2e8f0; text-align: justify; }
+        .lesson-subtitle { font-size: 0.98rem; color: #60a5fa; margin-bottom: 10px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
 
+        /* الخريطة الذهنية */
+        .mindmap-container {
+            background: rgba(30, 41, 59, 0.6); border: 1px solid var(--border);
+            border-radius: 14px; padding: 15px; margin: 10px 0; text-align: center;
+        }
+        .mindmap-root {
+            background: linear-gradient(135deg, var(--secondary), #1d4ed8); color: white;
+            padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;
+            display: inline-block; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(37,99,235,0.3);
+        }
+        .mindmap-branches { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+        .mindmap-node {
+            background: rgba(15, 23, 42, 0.8); border: 1px dashed var(--purple);
+            padding: 10px; border-radius: 10px; font-size: 0.8rem; color: #cbd5e1;
+        }
+
+        /* التمارين التفاعلية */
         .quiz-option {
             background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
             padding: 10px 14px; border-radius: 10px; margin-top: 8px; font-size: 0.84rem;
             cursor: pointer; transition: all 0.2s;
         }
         .quiz-option:hover { background: rgba(37, 99, 235, 0.25); border-color: var(--secondary); }
+
+        .btn-toggle-sol {
+            background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);
+            padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; cursor: pointer; margin-top: 8px;
+        }
+        .btn-toggle-sol:hover { background: rgba(16, 185, 129, 0.3); }
 
         footer { margin-top: 20px; font-size: 0.75rem; color: var(--text-muted); text-align: center; padding-bottom: 20px; }
     </style>
@@ -98,16 +121,16 @@
     <div class="container">
         <header>
             <h1>أكاديمية أمين</h1>
-            <p class="subtitle">مولّد الدروس والتمارين التفاعلية الشامل للمناهج الجزائرية</p>
+            <p class="subtitle">مولّد الدروس التفصيلية والخرائط الذهنية والتمارين التفاعلية</p>
         </header>
 
         <div class="card">
             <div class="section-title">
-                <span>✨ تحديد المسار التعليمي وتوليد الدرس</span>
-                <span style="font-size: 0.7rem; background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 2px 8px; border-radius: 6px;">تفاعلي بالذكاء الاصطناعي</span>
+                <span>🧠 محرك التوليد التفصيلي والذهني</span>
+                <span style="font-size: 0.7rem; background: rgba(236, 72, 153, 0.2); color: #f472b6; padding: 2px 8px; border-radius: 6px;">خريطة ذهنية + تمارين</span>
             </div>
 
-            <!-- 1. اختيار الطور التعليمي -->
+            <!-- 1. اختيار الطور -->
             <div class="form-group">
                 <label class="form-label">1. اختر الطور التعليمي</label>
                 <select id="phaseSelect" class="form-select" onchange="updateLevels()">
@@ -118,7 +141,7 @@
                 </select>
             </div>
 
-            <!-- 2. اختيار المستوى / السنة -->
+            <!-- 2. اختيار المستوى -->
             <div class="form-group">
                 <label class="form-label">2. اختر السنة / المستوى الدراسي</label>
                 <select id="levelSelect" class="form-select" onchange="updateSubjects()" disabled>
@@ -134,55 +157,81 @@
                 </select>
             </div>
 
-            <!-- 4. كتابة عنوان الدرس -->
+            <!-- 4. عنوان الدرس -->
             <div class="form-group">
-                <label class="form-label">4. عنوان الدرس المراد شرحه وتوليده</label>
-                <input type="text" id="lessonTitle" class="form-input" placeholder="مثال: القاسم المشترك الأكبر، الجملة الاسمية، الدوال الأسية...">
+                <label class="form-label">4. عنوان الدرس المراد تفكيكه وشرحه</label>
+                <input type="text" id="lessonTitle" class="form-input" placeholder="مثال: القاسم المشترك الأكبر PGCD، التكهرب والشحنة، المناعة...">
             </div>
 
-            <button class="btn-purple" onclick="generateFullInteractiveLesson()">✨ توليد الدرس والتمارين التفاعلية فوراً</button>
+            <button class="btn-purple" onclick="generateAdvancedLesson()">🚀 توليد الدرس الشامل، الخريطة الذهنية والتمارين</button>
         </div>
 
-        <!-- نتيجة التوليد: الدرس والتمارين -->
+        <!-- نتيجة التوليد التفصيلي -->
         <div id="outputContainer" class="result-box">
             <span id="resBadge" class="badge"></span>
-            <h2 id="resTitle" style="color: #60a5fa; font-size: 1.2rem; margin-bottom: 15px;"></h2>
+            <h2 id="resTitle" style="color: #60a5fa; font-size: 1.25rem; margin-bottom: 15px;"></h2>
 
-            <!-- قسم الشرح والدرس -->
+            <!-- 1. الدرس التفصيلي -->
             <div class="lesson-section">
-                <div class="lesson-subtitle">📘 الشرح والمفاهيم الأساسية:</div>
-                <p id="resContent" class="lesson-text"></p>
+                <div class="lesson-subtitle">📚 الشرح التفصيلي والمفاهيم الجوهرية:</div>
+                <div id="resDetailedContent" style="font-size: 0.86rem; color: #e2e8f0; text-align: justify; space-y: 10px;"></div>
             </div>
 
-            <!-- قسم التمرين التفاعلي 1 (اختيار من متعدد) -->
+            <!-- 2. الخريطة الذهنية والمخطط التوضيحي -->
             <div class="lesson-section">
-                <div class="lesson-subtitle">📝 تمرين تفاعلي (اختبر فهمك):</div>
-                <p id="quizQuestion" style="font-size: 0.85rem; color: #f1f5f9; margin-bottom: 8px; font-weight: bold;"></p>
-                <div id="quizOptions"></div>
-                <div id="quizFeedback" style="display: none; margin-top: 10px; font-size: 0.82rem; font-weight: bold;"></div>
+                <div class="lesson-subtitle">🗺️ الخريطة الذهنية والتخطيط المفهومي:</div>
+                <div class="mindmap-container">
+                    <div id="mmRoot" class="mindmap-root">المفهوم الرئيسي</div>
+                    <div id="mmBranches" class="mindmap-branches"></div>
+                </div>
             </div>
 
-            <!-- قسم المسألة التطبيقية المحلولة -->
+            <!-- 3. التمارين التفاعلية المتنوعة -->
             <div class="lesson-section">
-                <div class="lesson-subtitle">💡 تطبيق محلول ومستهدف:</div>
-                <p id="resExercise" class="lesson-text" style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; border-right: 3px solid var(--green);"></p>
+                <div class="lesson-subtitle">🎯 التمارين التفاعلية المتنوعة:</div>
+                
+                <!-- تمرين 1: خيار من متعدد -->
+                <div style="margin-bottom: 14px; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px;">
+                    <strong style="font-size: 0.85rem; color: #c084fc;">تمرين 1 (سؤال خيارات):</strong>
+                    <p id="t1Q" style="font-size: 0.83rem; margin: 6px 0; color: #f1f5f9;"></p>
+                    <div id="t1Opts"></div>
+                    <div id="t1Fb" style="display:none; margin-top:8px; font-size:0.8rem; font-weight:bold;"></div>
+                </div>
+
+                <!-- تمرين 2: صح أو خطأ -->
+                <div style="margin-bottom: 14px; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px;">
+                    <strong style="font-size: 0.85rem; color: #f472b6;">تمرين 2 (صح أم خطأ؟):</strong>
+                    <p id="t2Q" style="font-size: 0.83rem; margin: 6px 0; color: #f1f5f9;"></p>
+                    <div style="display: flex; gap: 10px; margin-top: 8px;">
+                        <button class="quiz-option" style="flex:1; text-align:center;" onclick="checkT2(true)">✅ صـح</button>
+                        <button class="quiz-option" style="flex:1; text-align:center;" onclick="checkT2(false)">❌ خـطـأ</button>
+                    </div>
+                    <div id="t2Fb" style="display:none; margin-top:8px; font-size:0.8rem; font-weight:bold;"></div>
+                </div>
+
+                <!-- تمرين 3: تطبيق موجّه مع زر كشف الحل -->
+                <div style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px;">
+                    <strong style="font-size: 0.85rem; color: #34d399;">تمرين 3 (وضعية تطبيقية شاملة):</strong>
+                    <p id="t3Q" style="font-size: 0.83rem; margin: 6px 0; color: #e2e8f0;"></p>
+                    <button class="btn-toggle-sol" onclick="toggleSolution()">👁️ كشف الحل النموذجي والخطوات</button>
+                    <div id="t3Sol" style="display:none; margin-top:10px; font-size:0.82rem; color:#34d399; background:rgba(16,185,129,0.08); padding:10px; border-radius:8px; border-right:3px solid var(--green);"></div>
+                </div>
             </div>
         </div>
 
         <footer>
-            <p>&copy; 2026 - أكاديمية أمين | محرك المناهج الجزائرية المتكامل</p>
+            <p>&copy; 2026 - أكاديمية أمين | نظام الدروس التفصيلية والخرائط الذهنية</p>
         </footer>
     </div>
 
     <script>
-        // قواعد البيانات الخاصة بالمسارات التعليمية في الجزائر
         const dataStructure = {
             primary: {
                 name: "التعليم الابتدائي",
                 levels: {
                     "السنة الأولى ابتدائي": ["اللغة العربية", "الرياضيات", "التربية الإسلامية"],
                     "السنة الثانية ابتدائي": ["اللغة العربية", "الرياضيات", "التربية العلمية"],
-                    "السنة الثالثة ابتدائي": ["اللغة العربية", "الرياضيات", "الفرنسية", "العلوم"],
+                    "السنة الثالثة ابتدائي": ["اللغة العربية", "الرياضيات", "الفرنسية"],
                     "السنة الرابعة ابتدائي": ["اللغة العربية", "الرياضيات", "الفرنسية", "التاريخ والجغرافيا"],
                     "السنة الخامسة ابتدائي": ["اللغة العربية", "الرياضيات", "الفرنسية", "التربية الإسلامية", "التاريخ والجغرافيا"]
                 }
@@ -190,20 +239,20 @@
             middle: {
                 name: "التعليم المتوسط",
                 levels: {
-                    "السنة الأولى متوسط": ["الرياضيات", "علوم الطبيعة والحياة", "الفيزياء والتكنولوجيا", "اللغة العربية", "اللغة الإنجليزية"],
-                    "السنة الثانية متوسط": ["الرياضيات", "علوم الطبيعة والحياة", "الفيزياء والتكنولوجيا", "اللغة العربية", "الفرنسية"],
-                    "السنة الثالثة متوسط": ["الرياضيات", "الفيزياء والتكنولوجيا", "علوم الطبيعة والحياة", "اللغة العربية", "التاريخ والجغرافيا"],
+                    "السنة الأولى متوسط": ["الرياضيات", "علوم الطبيعة والحياة", "الفيزياء والتكنولوجيا", "اللغة العربية"],
+                    "السنة الثانية متوسط": ["الرياضيات", "علوم الطبيعة والحياة", "الفيزياء والتكنولوجيا", "اللغة العربية"],
+                    "السنة الثالثة متوسط": ["الرياضيات", "الفيزياء والتكنولوجيا", "علوم الطبيعة والحياة", "اللغة العربية"],
                     "السنة الرابعة متوسط (BEM)": ["الرياضيات", "الفيزياء والتكنولوجيا", "علوم الطبيعة والحياة", "اللغة العربية", "اللغة الإنجليزية", "التاريخ والجغرافيا"]
                 }
             },
             secondary: {
                 name: "التعليم الثانوي",
                 levels: {
-                    "السنة 1 ثانوي - جذع مشترك علوم": ["الرياضيات", "العلوم الفيزيائية", "علوم الطبيعة والحياة", "اللغة العربية", "الفرنسية"],
-                    "السنة 1 ثانوي - جذع مشترك آداب": ["اللغة العربية", "التاريخ والجغرافيا", "الفلسفة", "اللغة الإنجليزية", "الرياضيات المبسطة"],
-                    "السنة 3 ثانوي - بكالوريا علوم تجريبية (BAC)": ["علوم الطبيعة والحياة", "الرياضيات", "العلوم الفيزيائية", "الفلسفة", "اللغة العربية"],
+                    "السنة 1 ثانوي - جذع مشترك علوم": ["الرياضيات", "العلوم الفيزيائية", "علوم الطبيعة والحياة", "اللغة العربية"],
+                    "السنة 1 ثانوي - جذع مشترك آداب": ["اللغة العربية", "التاريخ والجغرافيا", "الفلسفة", "اللغة الإنجليزية"],
+                    "السنة 3 ثانوي - بكالوريا علوم تجريبية (BAC)": ["علوم الطبيعة والحياة", "الرياضيات", "العلوم الفيزيائية", "الفلسفة"],
                     "السنة 3 ثانوي - بكالوريا رياضيات وتقني (BAC)": ["الرياضيات", "العلوم الفيزيائية", "الهندسة المدنية/الميكانيكية", "الفلسفة"],
-                    "السنة 3 ثانوي - بكالوريا آداب وفلسفة (BAC)": ["الفلسفة", "اللغة العربية وآدابها", "التاريخ والجغرافيا", "اللغات الأجنبية"]
+                    "السنة 3 ثانوي - بكالوريا آداب وفلسفة (BAC)": ["الفلسفة", "اللغة العربية وآدابها", "التاريخ والجغرافيا"]
                 }
             }
         };
@@ -221,13 +270,10 @@
                 levelSelect.disabled = false;
                 Object.keys(dataStructure[phase].levels).forEach(lvl => {
                     let opt = document.createElement('option');
-                    opt.value = lvl;
-                    opt.innerText = lvl;
+                    opt.value = lvl; opt.innerText = lvl;
                     levelSelect.appendChild(opt);
                 });
-            } else {
-                levelSelect.disabled = true;
-            }
+            } else { levelSelect.disabled = true; }
         }
 
         function updateSubjects() {
@@ -241,63 +287,90 @@
                 subjectSelect.disabled = false;
                 dataStructure[phase].levels[level].forEach(sub => {
                     let opt = document.createElement('option');
-                    opt.value = sub;
-                    opt.innerText = sub;
+                    opt.value = sub; opt.innerText = sub;
                     subjectSelect.appendChild(opt);
                 });
-            } else {
-                subjectSelect.disabled = true;
-            }
+            } else { subjectSelect.disabled = true; }
         }
 
-        function generateFullInteractiveLesson() {
+        function generateAdvancedLesson() {
             let phase = document.getElementById('phaseSelect').value;
             let level = document.getElementById('levelSelect').value;
             let subject = document.getElementById('subjectSelect').value;
             let title = document.getElementById('lessonTitle').value.trim();
 
             if (!phase || !level || !subject || !title) {
-                alert("يرجى إكمال جميع الخطوات (الطور، المستوى، المادة، وعنوان الدرس) للتوليد!");
+                alert("يرجى اختيار الطور، المستوى، المادة، وإدخال عنوان الدرس لتوليده تفصيلياً!");
                 return;
             }
 
-            // عرض شارة المعطيات
             document.getElementById('resBadge').innerText = `${level} | مادة: ${subject}`;
-            document.getElementById('resTitle').innerText = `📖 درس: ${title}`;
+            document.getElementById('resTitle').innerText = `📖 الدرس التفصيلي: ${title}`;
 
-            // شرح تفصيلي تلقائي
-            document.getElementById('resContent').innerText = 
-                `يُعتبر درس (${title}) من المحاور الجوهرية المقررة في مادة ${subject} لطلاب ${level}. يرتكز هذا الدرس على فهم القواعد الأساسية والتطبيق المنهجي السليم وفق المعايير المعتمدة في امتحانات التربية الوطنية. يجب على الطالب التركيز على استخراج المعطيات وتطبيق القوانين المباشرة.`;
-
-            // تمرين اختيار من متعدد تفاعلي
-            document.getElementById('quizQuestion').innerText = `سؤال تفاعلي: ما هي الخطوة المنطقية الأولى عند التعامل مع موضوع (${title})؟`;
-            
-            let optionsHtml = `
-                <div class="quiz-option" onclick="checkQuiz(true)">أ) قراءة المعطيات بدقة وتحديد القانون أو القاعدة المناسبة (صحيح)</div>
-                <div class="quiz-option" onclick="checkQuiz(false)">ب) البدء في الحساب فوراً دون مراجعة القوانين الأساسية</div>
-                <div class="quiz-option" onclick="checkQuiz(false)">ج) الاعتماد على التخمين بدون خطوات منهجة</div>
+            // 1. الشرح التفصيلي
+            document.getElementById('resDetailedContent').innerHTML = `
+                <p><strong>🔹 1. المقدمة والهدف:</strong> يهدف درس <em>(${title})</em> إلى تمكين الطالب في مادة ${subject} من فهم القواعد والمفاهيم الأساسية المقررة في المنهج الجزائري.</p>
+                <p style="margin-top:6px;"><strong>🔹 2. القواعد والقوانين الرئيسية:</strong> يعتمد التقييم في هذا الدرس على تطبيق الخطوات المنهجية المباشرة واستخراج المعطيات الأساسية دون تخمين.</p>
+                <p style="margin-top:6px;"><strong>🔹 3. ملخص المنهجية:</strong> التأكد من فهم المصطلح الفني الخاص بـ <em>"${title}"</em>، وكتابة خطوات الحل بترتيب منطقي وسليم.</p>
             `;
-            document.getElementById('quizOptions').innerHTML = optionsHtml;
-            document.getElementById('quizFeedback').style.display = 'none';
 
-            // مسألة تطبيقية محلولة
-            document.getElementById('resExercise').innerHTML = 
-                `<strong>مسألة تطبيقية:</strong> احسب أو حدد النتيجة النموذجية في درس <em>"${title}"</em>.<br>` +
-                `<span style="color: #34d399;">✔ الحل النموذجي:</span> يتم تطبيق المبدأ المباشر لـ (${title}) بحساب المعطيات خطوة بخطوة للحصول على النتيجة النهائية الدقيقة.`;
+            // 2. الخريطة الذهنية
+            document.getElementById('mmRoot').innerText = title;
+            document.getElementById('mmBranches').innerHTML = `
+                <div class="mindmap-node">📌 <strong>المفاهيم:</strong><br>التعريف والأساسيات</div>
+                <div class="mindmap-node">📐 <strong>القوانين:</strong><br>المعادلات والخطوات</div>
+                <div class="mindmap-node">📝 <strong>التطبيقات:</strong><br>حل الوضعيات والمناذج</div>
+            `;
+
+            // 3. التمارين التفاعلية المتنوعة
+            document.getElementById('t1Q').innerText = `ما هي الركيزة الأساسية عند صياغة إجابة درس [${title}]؟`;
+            document.getElementById('t1Opts').innerHTML = `
+                <div class="quiz-option" onclick="checkT1(true)">أ) تحديد المعطيات المباشرة واستخدام القاعدة المقررة (صحيح)</div>
+                <div class="quiz-option" onclick="checkT1(false)">ب) تجاوز الخطوات وكتابة النتيجة فقط</div>
+            `;
+            document.getElementById('t1Fb').style.display = 'none';
+
+            document.getElementById('t2Q').innerText = `تعتبر خطوات الشرح في درس [${title}] اختيارية ولا تؤثر على نقطة الامتحان المدرسية.`;
+            document.getElementById('t2Fb').style.display = 'none';
+
+            document.getElementById('t3Q').innerText = `إليك الوضعية: استخرج التطبيق المباشر لدرس (${title}) واعرض النتيجة المنهجية المعتمدة.`;
+            document.getElementById('t3Sol').innerText = `✔ الخطوة 1: استخراج المعطيات الخاصة بـ (${title}).\n✔ الخطوة 2: تطبيق القانون والمبدأ المباشر لـ ${subject}.\n✔ الخطوة 3: التثبت من صحة النتيجة وتدوينها بشكل واضح.`;
+            document.getElementById('t3Sol').style.display = 'none';
 
             document.getElementById('outputContainer').classList.add('active');
             document.getElementById('outputContainer').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function checkQuiz(isCorrect) {
-            let fb = document.getElementById('quizFeedback');
+        function checkT1(isCorrect) {
+            let fb = document.getElementById('t1Fb');
             fb.style.display = 'block';
-            if (isCorrect) {
+            if(isCorrect) {
                 fb.style.color = '#34d399';
-                fb.innerText = '✅ إجابة ممتازة وصحيحة! تم استيعاب المبدأ بنجاح.';
+                fb.innerText = '✅ إجابة صحيحة! أحسنت.';
             } else {
                 fb.style.color = '#f87171';
-                fb.innerText = '❌ إجابة غير دقيقة! اختر الخيار (أ) لاتّباع المنهجية المدرسية الصحيحة.';
+                fb.innerText = '❌ إجابة خاطئة! اختر الخيار (أ).';
+            }
+        }
+
+        function checkT2(userChoice) {
+            let fb = document.getElementById('t2Fb');
+            fb.style.display = 'block';
+            if(!userChoice) { // الإجابة الصحيحة هي "خطأ"
+                fb.style.color = '#34d399';
+                fb.innerText = '✅ إجابة صحيحة! الخطوات إجبارية في المنهجية الجزائرية للحصول على العلامة الكاملة.';
+            } else {
+                fb.style.color = '#f87171';
+                fb.innerText = '❌ إجابة خاطئة! العبارة خاطئة، لأن الخطوات أساسية للحصول على النقاط.';
+            }
+        }
+
+        function toggleSolution() {
+            let sol = document.getElementById('t3Sol');
+            if (sol.style.display === 'none' || sol.style.display === '') {
+                sol.style.display = 'block';
+            } else {
+                sol.style.display = 'none';
             }
         }
     </script>
