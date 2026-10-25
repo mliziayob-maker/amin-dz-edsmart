@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية أمين | البوابة الذكية للتعليم</title>
+    <title>أكاديمية أمين | البوابة الشاملة لجميع المستويات</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- ربط الإصدار لمنع مشاكل الكاش -->
-    <link rel="stylesheet" href="style.css?v=2026.2">
     <style>
         :root {
             --primary: #1e3a8a;
@@ -34,52 +32,51 @@
         }
 
         .container { width: 100%; max-width: 540px; }
+
         header { text-align: center; margin: 15px 0; }
-        
-        h1 { font-size: 1.8rem; color: #60a5fa; margin-bottom: 4px; font-weight: 900; }
-        .subtitle { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px; }
+        h1 { font-size: 1.7rem; color: #60a5fa; margin-bottom: 4px; font-weight: 900; }
+        .subtitle { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 15px; }
 
-        /* التبويبات */
-        .tabs-nav {
-            display: flex; gap: 6px; margin-bottom: 15px;
-            background: rgba(15, 23, 42, 0.8); padding: 6px;
-            border-radius: 14px; border: 1px solid var(--border);
+        /* شريط البحث المطور ليظهر كاملاً */
+        .search-box { position: relative; margin-bottom: 20px; }
+        .search-input {
+            width: 100%; background: var(--surface); border: 1px solid var(--border);
+            padding: 10px 14px 10px 38px; border-radius: 12px; color: white;
+            font-size: 0.85rem; outline: none; backdrop-filter: blur(10px);
         }
-        .tab-btn {
-            flex: 1; background: transparent; border: none; color: var(--text-muted);
-            padding: 10px 8px; border-radius: 10px; font-size: 0.85rem; font-weight: 700;
-            cursor: pointer; transition: all 0.3s; text-align: center;
-        }
-        .tab-btn.active { background: var(--secondary); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4); }
-
-        .stage-pane { display: none; }
-        .stage-pane.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        .search-input:focus { border-color: var(--secondary); }
+        .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
         .card {
             background: var(--surface); backdrop-filter: blur(12px);
-            border-radius: 18px; padding: 20px; border: 1px solid var(--border);
+            border-radius: 18px; padding: 18px; border: 1px solid var(--border);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); margin-bottom: 15px;
         }
-        .section-title {
-            font-size: 1rem; color: #60a5fa; margin-bottom: 12px; font-weight: bold;
-            border-right: 3px solid var(--accent); padding-right: 8px;
-        }
-        .sub-sect { font-size: 0.85rem; color: #fbbf24; margin: 12px 0 8px 0; font-weight: bold; }
 
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+        .card-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;
+        }
+        .stage-title { font-size: 1rem; color: #f1f5f9; font-weight: 700; }
+        .status-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 6px; font-weight: bold; }
+        .tag-active { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .tag-soon { background: rgba(217, 119, 6, 0.15); color: #fbbf24; border: 1px solid rgba(217, 119, 6, 0.3); }
+
+        .sub-category { font-size: 0.85rem; color: #60a5fa; margin: 10px 0 6px 0; font-weight: bold; }
+        
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
         .btn {
             display: flex; align-items: center; justify-content: center; gap: 6px;
             background: rgba(255, 255, 255, 0.04); color: var(--text); text-decoration: none;
-            padding: 12px 10px; border-radius: 12px; font-weight: 700; font-size: 0.82rem;
+            padding: 10px 8px; border-radius: 10px; font-weight: 700; font-size: 0.8rem;
             border: 1px solid var(--border); transition: all 0.2s; text-align: center; cursor: pointer;
         }
-        .btn:hover { transform: translateY(-2px); background: rgba(37, 99, 235, 0.2); border-color: var(--secondary); }
+        .btn:hover { background: rgba(37, 99, 235, 0.2); border-color: var(--secondary); }
         .btn-accent { background: linear-gradient(135deg, var(--accent), #b45309); border: none; color: white; }
         .btn-primary { background: linear-gradient(135deg, var(--secondary), #1d4ed8); border: none; color: white; }
         .btn-full { grid-column: span 2; }
 
-        /* نافذة تنبيه نظيفة */
+        /* نافذة منبثقة */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
@@ -87,12 +84,13 @@
         }
         .modal-content {
             background: var(--surface-solid); border: 1px solid var(--border);
-            padding: 24px; border-radius: 20px; width: 100%; max-width: 380px; text-align: center;
+            padding: 22px; border-radius: 18px; width: 100%; max-width: 360px; text-align: center;
         }
-        .modal-content h3 { color: #60a5fa; margin-bottom: 10px; font-size: 1.1rem; }
-        .modal-content p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px; line-height: 1.5; }
-        .modal-btn { background: var(--secondary); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
-        footer { margin-top: 15px; font-size: 0.75rem; color: var(--text-muted); text-align: center; padding-bottom: 20px; }
+        .modal-content h3 { color: #60a5fa; margin-bottom: 8px; font-size: 1.05rem; }
+        .modal-content p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px; line-height: 1.5; }
+        .modal-btn { background: var(--secondary); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
+
+        footer { margin-top: 15px; font-size: 0.72rem; color: var(--text-muted); text-align: center; padding-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -100,25 +98,79 @@
     <div class="container">
         <header>
             <h1>Amin-Dz-Edsmart</h1>
-            <p class="subtitle">المدرسة الافتراضية الذكية - هندسة مأمونة ومحدثة</p>
+            <p class="subtitle">البوابة الشاملة لجميع الأطوار والمستويات التعليمية في الجزائر</p>
         </header>
 
-        <!-- التبويبات -->
-        <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchStage('middle', this)">📖 المتوسط (BEM)</button>
-            <button class="tab-btn" onclick="switchStage('secondary', this)">🎓 الثانوي (BAC)</button>
-            <button class="tab-btn" onclick="switchStage('primary', this)">🎒 الابتدائي</button>
+        <!-- شريط البحث السريع المصلح -->
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن مستواك (مثل: الأولى متوسط، البكالوريا)..." onkeyup="filterLevels()">
         </div>
 
-        <!-- حاوية المحتوى الديناميكي -->
-        <div id="appContainer"></div>
+        <!-- 1. الطور المتوسط (كامل المستويات) -->
+        <div class="card" data-key="متوسط أولى ثانية ثالثة رابعة bem">
+            <div class="card-header">
+                <span class="stage-title">📖 التعليم المتوسط (CEM)</span>
+                <span class="status-tag tag-active">نشط ومتاح</span>
+            </div>
+            
+            <div class="sub-category">📚 السنة الرابعة متوسط (BEM - مفعلة)</div>
+            <div class="btn-grid">
+                <a href="lesson.html" class="btn btn-accent">📐 رياضيات (PGCD)</a>
+                <a href="physics.html" class="btn btn-primary">⚡ فيزياء وتكنولوجيا</a>
+            </div>
+
+            <div class="sub-category">📖 باقي مستويات المتوسط</div>
+            <div class="btn-grid">
+                <button class="btn" onclick="showModal('السنة الأولى متوسط', 'برامج ومناهج السنة الأولى متوسط قيد الإعداد الهندسي.')">الأولى متوسط</button>
+                <button class="btn" onclick="showModal('السنة الثانية متوسط', 'برامج ومناهج السنة الثانية متوسط قيد الإعداد الهندسي.')">الثانية متوسط</button>
+                <button class="btn btn-full" onclick="showModal('السنة الثالثة متوسط', 'برامج ومناهج السنة الثالثة متوسط قيد الإعداد الهندسي.')">الثالثة متوسط</button>
+            </div>
+        </div>
+
+        <!-- 2. الطور الثانوي (كامل المستويات والشعب) -->
+        <div class="card" data-key="ثانوي أولى جذع مشترك عيون رياضي تقني تسيير آداب بكالوريا bac">
+            <div class="card-header">
+                <span class="stage-title">🎓 التعليم الثانوي (BAC)</span>
+                <span class="status-tag tag-soon">قريباً</span>
+            </div>
+
+            <div class="sub-category">🔬 جذوع مشتركة (السنة الأولى)</div>
+            <div class="btn-grid">
+                <button class="btn" onclick="showModal('جذع مشترك علوم وتكنولوجيا', 'مناهج الجذع المشترك علوم قيد التطوير.')">جذع مشترك علوم</button>
+                <button class="btn" onclick="showModal('جذع مشترك آداب', 'مناهج الجذع المشترك آداب قيد التطوير.')">جذع مشترك آداب</button>
+            </div>
+
+            <div class="sub-category">⚡ السنة الثانية والثالثة ثانوي (الشعب)</div>
+            <div class="btn-grid">
+                <button class="btn" onclick="showModal('علوم تجريبية', 'دروس علوم تجريبية (رياضيات، فيزياء، علوم) قريباً.')">علوم تجريبية</button>
+                <button class="btn" onclick="showModal('رياضيات وتقني رياضي', 'شعبة الرياضيات والتقني قريباً.')">رياضيات / تقني</button>
+                <button class="btn" onclick="showModal('تسيير واقتصاد', 'مناهج التسيير المحاسبي والمالي قريباً.')">تسيير واقتصاد</button>
+                <button class="btn" onclick="showModal('آداب وفلسفة', 'مناهج الآداب والفلسفة واللغات قريباً.')">آداب وفلسفة</button>
+            </div>
+        </div>
+
+        <!-- 3. الطور الابتدائي (كامل المستويات) -->
+        <div class="card" data-key="ابتدائي تحضيري أولى ثانية ثالثة رابعة خامسة">
+            <div class="card-header">
+                <span class="stage-title">🎒 التعليم الابتدائي</span>
+                <span class="status-tag tag-soon">قريباً</span>
+            </div>
+
+            <div class="sub-category">🌱 المستويات الأساسية للصغار</div>
+            <div class="btn-grid">
+                <button class="btn" onclick="showModal('السنة الأولى والثانية ابتدائي', 'برامج التأسيس والحساب للسنوات الأولى قريباً.')">السنوات (1 و 2)</button>
+                <button class="btn" onclick="showModal('السنة الثالثة والرابعة ابتدائي', 'مناهج السنوات الثالثة والرابعة قريباً.')">السنوات (3 و 4)</button>
+                <button class="btn btn-full" onclick="showModal('السنة الخامسة ابتدائي (الانتقال)', 'تحضيرات شهادة التعليم الابتدائي قريباً.')">السنة الخامسة (الابتدائي)</button>
+            </div>
+        </div>
 
         <footer>
-            <p>&copy; 2026 - Amin-Dz-Edsmart | برأس مال 0 دج</p>
+            <p>&copy; 2026 - Amin-Dz-Edsmart | برأس مال 0 دج | بناء هندسي متكامل</p>
         </footer>
     </div>
 
-    <!-- النافذة المنبثقة -->
+    <!-- نافذة منبثقة تفاعلية -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle">تنبيه النظام</h3>
@@ -127,52 +179,7 @@
         </div>
     </div>
 
-    <!-- استدعاء ملف البيانات المنفصل -->
-    <script src="data.js?v=2026.2"></script>
     <script>
-        // المحرك البرمجي لعرض البيانات بنظافة تامة
-        let currentStage = 'middle';
-
-        function renderStage(stageKey) {
-            currentStage = stageKey;
-            const container = document.getElementById('appContainer');
-            const data = ACADEMY_DATA[stageKey];
-            
-            let html = `<div class="stage-pane active"><div class="card">`;
-            
-            if (stageKey === 'secondary') {
-                // عرض خاص بالثانوي (شعب متعددة)
-                html += `<div class="section-title">${data.title}</div>`;
-                data.sections.forEach(sect => {
-                    html += `<div class="sub-sect">${sect.sectName}</div><div class="btn-grid">`;
-                    sect.items.forEach(item => {
-                        let btnClass = item.active ? 'btn btn-primary' : 'btn';
-                        let clickAction = item.active ? `window.location.href='${item.url}'` : `showModal('${item.name}', '${item.msg}')`;
-                        html += `<button class="${btnClass} ${item.items && item.items.length > 2 ? 'btn-full':''}" onclick="${clickAction}">${item.name}</button>`;
-                    });
-                    html += `</div>`;
-                });
-            } else {
-                // عرض المتوسط والابتدائي
-                html += `<div class="section-title">${data.title}</div><div class="btn-grid">`;
-                data.subjects.forEach(sub => {
-                    let btnClass = sub.accent ? 'btn btn-accent' : (sub.active ? 'btn btn-primary' : 'btn');
-                    let clickAction = sub.active ? `window.location.href='${sub.url}'` : `showModal('${sub.name}', '${sub.msg}')`;
-                    html += `<button class="${btnClass}" onclick="${clickAction}">${sub.name}</button>`;
-                });
-                html += `</div>`;
-            }
-
-            html += `</div></div>`;
-            container.innerHTML = html;
-        }
-
-        function switchStage(stageKey, btnElement) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
-            renderStage(stageKey);
-        }
-
         function showModal(title, text) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalText').innerText = text;
@@ -183,8 +190,20 @@
             document.getElementById('infoModal').style.display = 'none';
         }
 
-        // التشغيل الأولي
-        renderStage('middle');
+        // محرك البحث الفوري لتصفية المستويات
+        function filterLevels() {
+            let query = document.getElementById('searchInput').value.toLowerCase().trim();
+            let cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                let keys = card.getAttribute('data-key');
+                if (keys.includes(query) || query === "") {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
     </script>
 </body>
 </html>
